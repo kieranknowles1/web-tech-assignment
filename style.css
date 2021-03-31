@@ -30,27 +30,21 @@ nav a {
 }
 
 /* Banner */
-/* https://www.w3schools.com/howto/howto_css_image_text.asp */
+/* https://www.w3schools.com/cssref/pr_background-position.asp */
 .banner {
-    position: relative;
-    text-align: center;
-}
-
-.banner img {
-    /* https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit */
-    object-fit: cover;
+    background-image: url("images/beach.webp");
+    background-repeat: no-repeat;
+    background-position: center;
     width: 100%;
     height: 12em;
 }
 
 .banner h2 {
     /* TODO: Fit text to container */
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -40%);
-
+    text-align: center;
     font-size: 2vw;
+
+    color: white;
 }
 
 /* Media Queries */

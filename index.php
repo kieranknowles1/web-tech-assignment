@@ -9,16 +9,39 @@
 </head>
 
 <?php
-require "header.php";
+    require "header.php";
+    require "database_conn.php";
 ?>
 
 <section class="banner">
-    <img src="images/beach.webp">
-
     <h2>Luxury and specialist holidays in a couple of clicks</h2>
 </section>
 
+<section class="categories">
+    <h2>Categories</h2>
+<?php
+    // Categories
+    $sql = "SELECT catID, catDesc
+            FROM LCG_category";
+    
+    $queryResult = $conn->query($sql);
+
+    if ($queryResult === false) {
+        $error = $conn->error;
+        echo "<p> Query failed: $error.</p>";
+        exit;
+    }
+
+    while ($row = $queryResult->fetch_object()) {
+        echo "<div class='category'><a href='category.php?category={$row->catID}'>";
+
+        echo "<p>{$row->catDesc}</p>";
+
+        echo "</a></div>";
+    }
+?>
+</section>
 
 <?php
-require "footer.php";
+    require "footer.php";
 ?>
