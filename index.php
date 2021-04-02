@@ -19,6 +19,7 @@
 
 <section class="categories">
     <h2>Categories</h2>
+    <div class="break"></div>
 <?php
     // Categories
     $sql = "SELECT catID, catDesc
@@ -28,16 +29,44 @@
 
     if ($queryResult === false) {
         $error = $conn->error;
-        echo "<p> Query failed: $error.</p>";
+        echo "<p>Category query failed: $error.</p>";
         exit;
     }
 
     while ($row = $queryResult->fetch_object()) {
-        echo "<div class='category'><a href='category.php?category={$row->catID}'>";
+        // Use inline css for backgroudn
+        echo "<div class='category' style='background-image: url(\"images/categories/$row->catID.jpg\")'><a href='category.php?id={$row->catID}'>\n";
 
-        echo "<p>{$row->catDesc}</p>";
+        echo "\t<p>{$row->catDesc}</p>\n";
 
-        echo "</a></div>";
+        echo "</a></div>\n";
+    }
+?>
+</section>
+
+<section class="holidays">
+    <h2>Holdiays</h2>
+    <div class="break"></div>
+<?php
+    // Holidays
+    $sql = "SELECT holidayID, holidayTitle
+            FROM LCG_holidays";
+
+    $queryResult = $conn->query($sql);
+
+    
+    if ($queryResult === false) {
+        $error = $conn->error;
+        echo "<p>Holiday query failed: $error.</p>";
+        exit;
+    }
+
+    while ($row = $queryResult->fetch_object()) {
+        echo "<div class='holiday'><a href='holiday.php?id={$row->holidayID}'>\n";
+
+        echo "\t<p>{$row->holidayTitle}</p>\n";
+
+        echo "</a></div>\n";
     }
 ?>
 </section>
