@@ -67,14 +67,26 @@ nav a {
     justify-content: space-evenly;
 }
 
-.holiday, .category {
+.holidays a, .categories a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.holidayBox {
     width: 30vw;
     height: 10vw;
+
+    margin: 1%;
 
     border: 1px solid black;
 
     background-size: 100%;
     background-repeat: no-repeat;
+}
+
+.holidayBox .title {
+    background-color: rgb(255, 255, 255, 0.7);
+    padding: 0.5em;
 }
 
 /* Media Queries */
@@ -95,7 +107,7 @@ nav a {
         display: none;
     }
 
-    .holiday, .category {
+    .holidayBox {
         width: 30vw;
         height: 15vw;
     }
@@ -138,7 +150,7 @@ nav a {
         justify-content: space-evenly;
     }
 
-    .holiday, .category {
+    .holidayBox {
         width: 90vw;
         height: 45vw;
     }

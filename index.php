@@ -11,6 +11,17 @@
 <?php
     require "header.php";
     require "database_conn.php";
+
+    // Shared by holidays and categories
+    function boxBegin($id, $type ,$title) {
+        echo "<a href='category.php?id={$id}'><div class='holidayBox' style='background-image: url(\"images/$type/$id.jpg\")'>\n";
+
+        echo "\t<p class='title'>{$title}</p>\n";
+    }
+
+    function boxEnd() {
+        echo "</div></a>\n";
+    }
 ?>
 
 <section class="banner">
@@ -34,12 +45,10 @@
     }
 
     while ($row = $queryResult->fetch_object()) {
-        // Use inline css for backgroudn
-        echo "<div class='category' style='background-image: url(\"images/categories/$row->catID.jpg\")'><a href='category.php?id={$row->catID}'>\n";
+        // Use inline css for backgroud
+        boxBegin($row->catID, "category", $row->catDesc);
 
-        echo "\t<p>{$row->catDesc}</p>\n";
-
-        echo "</a></div>\n";
+        boxEnd();
     }
 ?>
 </section>
@@ -62,11 +71,9 @@
     }
 
     while ($row = $queryResult->fetch_object()) {
-        echo "<div class='holiday'><a href='holiday.php?id={$row->holidayID}'>\n";
+        boxBegin($row->holidayID, "holiday", $row->holidayTitle);
 
-        echo "\t<p>{$row->holidayTitle}</p>\n";
-
-        echo "</a></div>\n";
+        boxEnd();
     }
 ?>
 </section>
