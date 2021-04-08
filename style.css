@@ -48,7 +48,7 @@ nav a {
 .banner h2 {
     /* TODO: Fit text to container */
     text-align: center;
-    font-size: 2vw;
+    font-size: 2.5vw;
 
     color: white;
 
@@ -110,7 +110,12 @@ nav a {
     .holidayBox {
         width: 30vw;
         height: 15vw;
+
+        /* https://css-tricks.com/snippets/css/scale-on-hover-with-webkit-transition/ */
+        transition: all .2s ease-in-out;
     }
+
+    .holidayBox:hover { transform: scale(1.05); }
 }
 
 @media screen and (orientation: portrait) {

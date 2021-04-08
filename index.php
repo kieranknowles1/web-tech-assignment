@@ -58,7 +58,7 @@
     <div class="break"></div>
 <?php
     // Holidays
-    $sql = "SELECT holidayID, holidayTitle
+    $sql = "SELECT holidayID, holidayTitle, holidayDuration, holidayPrice
             FROM LCG_holidays";
 
     $queryResult = $conn->query($sql);
@@ -72,6 +72,13 @@
 
     while ($row = $queryResult->fetch_object()) {
         boxBegin($row->holidayID, "holiday", $row->holidayTitle);
+        
+        echo "<p>$row->holidayDuration nights</p>";
+
+        // holidayPrice uses decimal so query returns a string
+        // Casting to int removes the trailing '.00'
+        $price = (int)$row->holidayPrice;
+        echo "<p>£$price</p>";
 
         boxEnd();
     }
