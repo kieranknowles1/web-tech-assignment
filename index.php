@@ -14,7 +14,14 @@
 
     // Shared by holidays and categories
     function boxBegin($id, $type ,$title) {
-        echo "<a href='category.php?id={$id}'><div class='holidayBox' style='background-image: url(\"images/$type/$id.jpg\")'>\n";
+
+        // Use a default background image
+        $background = "images/$type/$id.jpg";
+        if (!file_exists($background)) {
+            $background = "images/default_background.jpg";
+        }
+
+        echo "<a href='category.php?id={$id}'><div class='holidayBox' style='background-image: url(\"$background\")'>\n";
 
         echo "\t<p class='title'>{$title}</p>\n";
     }
