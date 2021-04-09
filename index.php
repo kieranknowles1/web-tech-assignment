@@ -23,7 +23,7 @@
 
         echo "<a href='category.php?id={$id}'><div class='holidayBox' style='background-image: url(\"$background\")'>\n";
 
-        echo "\t<p class='title'>{$title}</p>\n";
+        echo "\t<p class='title'><span>{$title}</span>";
     }
 
     function boxEnd() {
@@ -54,6 +54,7 @@
     while ($row = $queryResult->fetch_object()) {
         // Use inline css for backgroud
         boxBegin($row->catID, "category", $row->catDesc);
+        echo "</p>\n";
 
         boxEnd();
     }
@@ -65,8 +66,10 @@
     <div class="break"></div>
 <?php
     // Holidays
-    $sql = "SELECT holidayID, holidayTitle, holidayDuration, holidayPrice
-            FROM LCG_holidays";
+    $sql = "SELECT LCG_holidays.holidayID, LCG_holidays.holidayTitle, LCG_holidays.holidayDuration, LCG_holidays.holidayPrice,
+                   LCG_location.country
+            FROM LCG_holidays
+            INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID";
 
     $queryResult = $conn->query($sql);
 
@@ -79,6 +82,8 @@
 
     while ($row = $queryResult->fetch_object()) {
         boxBegin($row->holidayID, "holiday", $row->holidayTitle);
+
+        echo "<span class='country'>$row->country</span></p>\n";
         
         echo "<p>$row->holidayDuration nights</p>";
 
