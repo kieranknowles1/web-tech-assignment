@@ -12,23 +12,8 @@
     require "header.php";
     require "database_conn.php";
 
-    // Shared by holidays and categories
-    function boxBegin($id, $type ,$title) {
-
-        // Use a default background image
-        $background = "images/$type/$id.jpg";
-        if (!file_exists($background)) {
-            $background = "images/default_background.jpg";
-        }
-
-        echo "<a href='category.php?id={$id}'><div class='holidayBox' style='background-image: url(\"$background\")'>\n";
-
-        echo "\t<p class='title'><span>{$title}</span>";
-    }
-
-    function boxEnd() {
-        echo "</div></a>\n";
-    }
+    require "utility.php";
+    require "shared.php";
 ?>
 
 <section class="banner">
@@ -45,11 +30,7 @@
     
     $queryResult = $conn->query($sql);
 
-    if ($queryResult === false) {
-        $error = $conn->error;
-        echo "<p>Category query failed: $error.</p>";
-        exit;
-    }
+    utility::checkQuery($conn, $queryResult);
 
     while ($row = $queryResult->fetch_object()) {
         // Use inline css for backgroud
@@ -62,7 +43,7 @@
 </section>
 
 <section class="holidays">
-    <h2>Holdiays</h2>
+    <h2>Holidays</h2>
     <div class="break"></div>
 <?php
     // Holidays
@@ -74,25 +55,10 @@
     $queryResult = $conn->query($sql);
 
     
-    if ($queryResult === false) {
-        $error = $conn->error;
-        echo "<p>Holiday query failed: $error.</p>";
-        exit;
-    }
+    utility::checkQuery($conn, $queryResult);
 
     while ($row = $queryResult->fetch_object()) {
-        boxBegin($row->holidayID, "holiday", $row->holidayTitle);
-
-        echo "<span class='country'>$row->country</span></p>\n";
-        
-        echo "<p>$row->holidayDuration nights</p>";
-
-        // holidayPrice uses decimal so query returns a string
-        // Casting to int removes the trailing '.00'
-        $price = (int)$row->holidayPrice;
-        echo "<p>£$price</p>";
-
-        boxEnd();
+        makeHoliday($row);
     }
 ?>
 </section>
