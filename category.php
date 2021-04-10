@@ -35,7 +35,7 @@
 
     $row = $queryResult->fetch_object();
     $catDesc = $row->catDesc;
-    echo "<title>$catDesc - Leading Choice Getaways</title>\n";
+    echo "<title>$catDesc holidays - Leading Choice Getaways</title>\n";
     ?>
     
 

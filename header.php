@@ -10,11 +10,11 @@ if(count(get_included_files()) ==1) {
 
 
 <body>
-<div class="gridContainer">
+<div class="navContainer">
     <script src="ham_menu.js"></script>
     <header>
         <h1><a href="">Leading Choice Getaways</a></h1>
-        <a href="" class="ham_button" onclick="ham_toggle('nav_menu'); return false">&#9776;</a>
+        <a href="/" class="ham_button" onclick="ham_toggle('nav_menu'); return false">&#9776;</a>
     </header>
     <nav id="nav_menu">
         <a href="holidays.php">Browse Holidays</a>

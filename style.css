@@ -10,7 +10,16 @@ body {
     height: 0;
 }
 
-/* Grid */
+/* Nav */
+.navContainer {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+
+    grid-template-areas: 
+        "header"
+        "nav";
+}
 
 header {
     grid-area: header;
@@ -21,7 +30,6 @@ header a {
     color: black;
 }
 
-/* Nav */
 nav a {
     color: white;
     background-color: #555555;
@@ -90,19 +98,57 @@ nav a {
     float: right;
 }
 
+/* Holiday details */
+/* See media queries */
+.holidayDetails {
+    display: grid;
+}
+
+/* All direct children */
+.holidayDetails > * {
+    border: 1px solid black;
+}
+
+.holidayDetails .header {
+    /* TODO: Auto resize */
+    grid-area: header;
+    text-decoration: underline;
+}
+
+.holidayDetails .description {
+    grid-area: description;
+}
+
+.holidayDetails .type {
+    grid-area: type;
+}
+
+.holidayDetails .location {
+    grid-area: location;
+}
+
+.holidayDetails .country {
+    grid-area: country;
+}
+
+.holidayDetails .images {
+    grid-area: images;
+}
+
+.holidayDetails .duration {
+    grid-area: duration;
+}
+
+.holidayDetails .price {
+    grid-area: price;
+}
+
+.holidayDetails .book {
+    grid-area: book;
+}
+
 /* Media Queries */
 @media screen and (orientation: landscape) {
-    /* Grid */
-    .gridContainer {
-        display: grid;
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-
-        grid-template-areas: 
-            "header"
-            "nav";
-    }
-
     /* No ham menu */
     .ham_button {
         display: none;
@@ -112,20 +158,34 @@ nav a {
         width: 30vw;
         height: 15vw;
     }
+
+    /* Holiday details */
+    .holidayDetails {
+        grid-template-rows: auto;
+        grid-template-columns: auto auto 20%;
+    
+        grid-template-areas: 
+            "header header type"
+            "description description location"
+            "description description country"
+            "images images images"
+            "duration price book";
+    }
+
+    .holidayDetails .images {
+        height: 25em;
+    }
+    
+    .holidayDetails .images img {
+        display: block;
+        width: auto;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 @media screen and (orientation: portrait) {
-    /* Grid */
-    .gridContainer {
-        display: grid;
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-
-        grid-template-areas: 
-            "header"
-            "nav";
-    }
-
     /* Ham Menu */
     .ham_button {
         font-size: 2em;
@@ -154,6 +214,24 @@ nav a {
     .holidayBox {
         width: 90vw;
         height: 45vw;
+    }
+
+    /* Holiday details */
+    .holidayDetails {
+        grid-template-rows: auto;
+        grid-template-columns: auto;
+    
+        grid-template-areas: 
+            "header header header"
+            "type type type"
+            "description description description"
+            "location location country"
+            "images images images"
+            "duration price book";
+    }
+
+    .holidayDetails .images img {
+        width: 100%;
     }
 }
 
