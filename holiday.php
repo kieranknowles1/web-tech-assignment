@@ -60,17 +60,20 @@
     // Automatically use 'an' when necessary
     $aOrAn = strstr("aeiou", $category[0]) ? 'An' : 'A';
 
-    $image = "images/holiday/$id.jpg";
-    if (!file_exists($image)) {
-        $image = "images/default_background.jpg";
+    $image = "images/holiday/$id";
+    if (!file_exists("$image.jpg")) {
+        $image = "images/default_background";
     }
+
+    // TODO: Use the database for this
+    $alt = file_get_contents($image . "_alt.txt");
 
     echo "\t<div class='header'><h2 class='header'>$row->holidayTitle</h2></div>\n";
     echo "\t<div class='type'>$aOrAn $category holiday</div>\n";
     echo "\t<div class='description'>$row->holidayDescription</div>\n";
     echo "\t<div class='location'>$row->locationName</div>\n";
     echo "\t<div class='country'>$row->country</div>\n";
-    echo "\t<div class='images'><img src='$image'></img></div>";
+    echo "\t<div class='images'><img src='$image.jpg' alt='$alt'></div>\n";
     echo "\t<div class='duration'>$row->holidayDuration nights</div>\n";
     echo "\t<div class='price'>£$row->holidayPrice</div>\n";
     echo "\t<a class='book' href=''><p>Book now!</p></a>\n"
