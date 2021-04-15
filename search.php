@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <?php
+<?php
     const ERROR_MESSAGE = "<p>No search query</p>";
 
     require "utility.php";
@@ -17,17 +13,8 @@
     }
     $searchQuery = $conn->real_escape_string($searchQuery);
 
-    echo "<title>$searchQuery - Leading Choice Getaways</title>\n";
-    ?>
-    
+    $title = "$searchQuery - Leading Choice Getaways";
 
-    <meta charset="utf-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-<?php
     require "header.php";
     
 

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <?php
+<?php
     const ERROR_MESSAGE = "<p>Invalid category</p>";
 
     // echo "util";
@@ -24,7 +20,7 @@
             FROM LCG_category
             WHERE catID = '$catID'
             LIMIT 1";
-    
+
     $queryResult = $conn->query($sql);
 
     utility::checkQuery($conn, $queryResult);
@@ -37,18 +33,9 @@
 
     $row = $queryResult->fetch_object();
     $catDesc = $row->catDesc;
-    echo "<title>$catDesc holidays - Leading Choice Getaways</title>\n";
-    ?>
-    
+    $title = "$catDesc holidays - Leading Choice Getaways";
 
-    <meta charset="utf-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-<?php
-    require "header.php";
+    require_once "header.php";
 
     echo "  <section class='holidays'>
                 <h2>$catDesc holidays</h2>

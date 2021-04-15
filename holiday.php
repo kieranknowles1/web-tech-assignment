@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <?php
+<?php
     const ERROR_MESSAGE = "<p>Invalid holiday</p>";
 
     require_once "utility.php";
@@ -40,18 +36,9 @@
 
     $row = $queryResult->fetch_object();
     $holidayTitle = $row->holidayTitle;
-    echo "<title>$holidayTitle holidays - Leading Choice Getaways</title>\n";
-    ?>
-    
+    $title = "$holidayTitle - Leading Choice Getaways";
 
-    <meta charset="utf-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-<?php
-    require "header.php";
+    require_once "header.php";
 ?>
 
 <section class="holidayDetails">

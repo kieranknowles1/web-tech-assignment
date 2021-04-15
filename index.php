@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Leading Choice Getaways</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
 <?php
+    $title = "Leading Choice Getaways";
     require "header.php";
     
     require_once "database_conn.php";

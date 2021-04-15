@@ -1,4 +1,6 @@
 <?php
+// Set $title before including
+
 require_once "utility.php";
 utility::noDirectAccess();
 
@@ -7,9 +9,15 @@ if (!isset($searchQuery)) {
     $searchQuery = "";
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $title?></title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
+</head>
 <body>
 <div class="navContainer">
     <script src="scripts.js"></script>
