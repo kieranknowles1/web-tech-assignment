@@ -10,10 +10,10 @@
 
 <?php
     require "header.php";
-    require "database_conn.php";
-
-    require "utility.php";
-    require "shared.php";
+    
+    require_once "database_conn.php";
+    require_once "utility.php";
+    require_once "shared.php";
 ?>
 
 <section class="banner">

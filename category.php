@@ -5,9 +5,11 @@
     <?php
     const ERROR_MESSAGE = "<p>Invalid category</p>";
 
-    require "utility.php";
-    require "database_conn.php";
-    require "shared.php";
+    // echo "util";
+    require_once "utility.php";
+    // echo "conn";
+    require_once "database_conn.php";
+    require_once "shared.php";
 
     $catID = utility::tryGet("id");
     if ($catID == null) {
