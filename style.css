@@ -202,7 +202,7 @@ nav a {
         display: none;
     }
 
-    nav > * {
+    nav a, nav .search {
         display: block;
         width: 100%;
 
