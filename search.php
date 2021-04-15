@@ -34,9 +34,7 @@
         if ($queryResult->num_rows != 0) {
         utility::checkQuery($conn, $queryResult);
 
-        while ($row = $queryResult->fetch_object()) {
-            makeHoliday($row); // TODO: Improve formatting when number of results is not a multiple of 3
-        }
+        utility::holidayList($queryResult);
     }
     else {
         echo "<p>No results</p>";

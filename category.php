@@ -52,9 +52,7 @@
     
     utility::checkQuery($conn, $queryResult);
 
-    while ($row = $queryResult->fetch_object()) {
-        makeHoliday($row);
-    }
+    utiliy::holidayList($queryResult);
     ?>
 
     </section>

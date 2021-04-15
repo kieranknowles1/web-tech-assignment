@@ -21,6 +21,8 @@ function boxEnd() {
     echo "</div></a>\n";
 }
 
+// Now using holidayList
+/*
 function makeHoliday($row) {
     boxBegin($row->holidayID, "holiday", $row->holidayTitle);
 
@@ -34,6 +36,25 @@ function makeHoliday($row) {
     echo "<p>£$price</p>";
 
     boxEnd();
+}*/
+
+function holidayList($queryResult) {
+    while ($row = $queryResult->fetch_object()) {
+        // TODO: Improve formatting when number of results is not a multiple of 3
+
+        boxBegin($row->holidayID, "holiday", $row->holidayTitle);
+
+        echo "<span class='country'>$row->country</span></p>\n";
+        
+        echo "<p>$row->holidayDuration nights</p>";
+    
+        // holidayPrice uses decimal so query returns a string
+        // Casting to int removes the trailing '.00'
+        $price = (int)$row->holidayPrice;
+        echo "<p>£$price</p>";
+    
+        boxEnd();
+    }
 }
 
 ?>
