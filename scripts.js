@@ -44,3 +44,9 @@ function ham_toggle(id) {
         menu.className = "show";
     }
 }
+
+// Returns true if the form contains an empty string
+function isEmpty(id) {
+    element = document.getElementById(id);
+    return element.value == "";
+}

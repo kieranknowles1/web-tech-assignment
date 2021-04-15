@@ -159,6 +159,10 @@ nav a {
         height: 15vw;
     }
 
+    nav .search {
+        float: right;
+    }
+
     /* Holiday details */
     .holidayDetails {
         grid-template-rows: auto;
@@ -198,8 +202,9 @@ nav a {
         display: none;
     }
 
-    nav a {
+    nav > * {
         display: block;
+        width: 100%;
 
         margin-top: 2px;
     }
