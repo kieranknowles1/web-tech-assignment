@@ -16,11 +16,10 @@ if (!isset($searchQuery)) {
     <title><?php echo $title?></title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="scripts.js"></script>
 </head>
 <body>
 <div class="navContainer">
-    <script src="scripts.js"></script>
     <header>
         <h1><a href="/">Leading Choice Getaways</a></h1>
         <a href="/" class="ham_button" onclick="ham_toggle('nav_menu'); return false">&#9776;</a>
@@ -29,6 +28,9 @@ if (!isset($searchQuery)) {
         <form action="search.php" onsubmit="return !isEmpty('query')"> <!-- Silently fail if no input-->
             <input class="search" name="q" id="query" type="text" placeholder="Search" value="<?php echo $searchQuery ?>"> <!--TODO: Tab index-->
         </form>
-        <a href="holidays.php">Browse Holidays</a>
+        <a href="/">Home</a>
+        <a href="admin.php">Admin</a>
+        <a href="credits.php">Credits</a>
+        <a href="wireframes.php">Wireframes</a>
     </nav>
 </div>
