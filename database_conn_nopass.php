@@ -7,7 +7,7 @@ utility::noDirectAccess();
 // MySQLi parameters
 $servername = "localhost";
 $username = "unn_w20013000";
-$password = "p9hm*FunVdxb%o";
+$password = "********"; // oops, this is why you use password managers
 $dbname = "unn_w20013000";
 
 // Create connection
