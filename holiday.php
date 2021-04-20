@@ -24,9 +24,7 @@
             WHERE LCG_holidays.holidayID='$id'
             LIMIT 1";
     
-    $queryResult = $conn->query($sql);
-
-    utility::checkQuery($conn, $queryResult);
+    $queryResult = utility::query($conn, $sql);
 
     if($queryResult->num_rows == 0) {
         http_response_code(400);

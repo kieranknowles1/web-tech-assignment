@@ -17,11 +17,22 @@ class utility {
     }
 
     // Exits with an error message if the query failed
-    static function checkQuery($conn, $result) {
+    /*static function checkQuery($conn, $result) {
+        echo "Page using old checkQuery";
+        exit(1);
+    }*/
+
+    // Runs then validates a query, returns the result
+    static function query($conn, $sql) {
+        $result = $conn->query($sql);
+
         if ($result === false) {
             $error = $conn->error;
             echo "<p>Query failed: $error.</p>";
             exit;
+        }
+        else {
+            return $result;
         }
     }
 

@@ -30,11 +30,9 @@
             WHERE LCG_holidays.holidayTitle LIKE '%$searchQuery%'
             OR    LCG_location.country LIKE '%$searchQuery%'";
 
-    $queryResult = $conn->query($sql);
-        if ($queryResult->num_rows != 0) {
-        utility::checkQuery($conn, $queryResult);
-
-        utility::holidayList($queryResult);
+    $queryResult = utility::query($conn, $sql);
+    if ($queryResult->num_rows != 0) {
+        holidayList($queryResult);
     }
     else {
         echo "<p>No results</p>";
