@@ -1,11 +1,9 @@
 <?php
     const ERROR_MESSAGE = "<p>Invalid category</p>";
 
-    // echo "util";
-    require_once "utility.php";
-    // echo "conn";
-    require_once "database_conn.php";
-    require_once "shared.php";
+    require_once "lib/utility.php";
+    require_once "lib/database_conn.php";
+    require_once "lib/shared.php";
 
     $catID = utility::tryGet("id");
     if ($catID == null) {
@@ -33,7 +31,7 @@
     $catDesc = $row->catDesc;
     $title = "$catDesc holidays - Leading Choice Getaways";
 
-    require_once "header.php";
+    require_once "lib/header.php";
 
     echo "  <section class='holidays'>
                 <h2>$catDesc holidays</h2>
@@ -53,5 +51,5 @@
     </section>
 
 <?php
-    require "footer.php";
+    require "lib/footer.php";
 ?>

@@ -1,9 +1,11 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'];
+
     $title = "Admin - Leading Choice Getaways";
 
-    require "header.php";
+    require "$root/lib/header.php";
 
-    require "database_conn.php";
+    require "$root/lib/database_conn.php";
     
     $sql = "SELECT holidayID, holidayTitle
                 FROM LCG_holidays
@@ -47,5 +49,5 @@
 
 
 <?php
-    require "footer.php";
+    require "$root/lib/footer.php";
 ?>

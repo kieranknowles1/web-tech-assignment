@@ -1,10 +1,10 @@
 <?php
     $title = "Leading Choice Getaways";
-    require "header.php";
+    require "lib/header.php";
     
-    require_once "database_conn.php";
-    require_once "utility.php";
-    require_once "shared.php";
+    require_once "lib/database_conn.php";
+    require_once "lib/utility.php";
+    require_once "lib/shared.php";
 ?>
 
 <section class="banner">
@@ -48,5 +48,5 @@
 </section>
 
 <?php
-    require "footer.php";
+    require "lib/footer.php";
 ?>

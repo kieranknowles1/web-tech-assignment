@@ -1,9 +1,9 @@
 <?php
     const ERROR_MESSAGE = "<p>Invalid holiday</p>";
 
-    require_once "utility.php";
-    require_once "database_conn.php";
-    require_once "shared.php";
+    require_once "lib/utility.php";
+    require_once "lib/database_conn.php";
+    require_once "lib/shared.php";
 
     $id = utility::tryGet("id");
     if ($id == null) {
@@ -36,7 +36,7 @@
     $holidayTitle = $row->holidayTitle;
     $title = "$holidayTitle - Leading Choice Getaways";
 
-    require_once "header.php";
+    require_once "lib/header.php";
 ?>
 
 <section class="holidayDetails">
@@ -66,5 +66,5 @@
 </section>
 
 <?php
-    require "footer.php";
+    require "lib/footer.php";
 ?>

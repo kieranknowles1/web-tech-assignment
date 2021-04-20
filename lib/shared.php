@@ -1,5 +1,6 @@
 <?php
-require_once "utility.php";
+$root = $_SERVER['DOCUMENT_ROOT'];
+require_once "$root/lib/utility.php";
 utility::noDirectAccess();
 
 // Use the same functions for holidays and categories

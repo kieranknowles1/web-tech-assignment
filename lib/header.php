@@ -14,9 +14,9 @@ if (!isset($searchQuery)) {
 <head>
     <meta charset="utf-8">
     <title><?php echo $title?></title>
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="/style.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="scripts.js"></script>
+    <script src="/scripts.js"></script>
 </head>
 <body>
 <div class="navContainer">
@@ -29,7 +29,7 @@ if (!isset($searchQuery)) {
             <input class="search" name="q" id="query" type="text" placeholder="Search" value="<?php echo $searchQuery ?>"> <!--TODO: Tab index-->
         </form>
         <a href="/">Home</a>
-        <a href="admin.php">Admin</a>
+        <a href="admin">Admin</a>
         <a href="credits.php">Credits</a>
         <a href="wireframes.php">Wireframes</a>
     </nav>
