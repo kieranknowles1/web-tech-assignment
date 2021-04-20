@@ -52,7 +52,7 @@
     
     utility::checkQuery($conn, $queryResult);
 
-    utiliy::holidayList($queryResult);
+    holidayList($queryResult);
     ?>
 
     </section>
