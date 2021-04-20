@@ -11,9 +11,16 @@ if(count(get_included_files()) == 1) {
 // Functions shared between multiple pages
 class utility {
     // Returns $_REQUEST[$key] if it is set
-    // Automatically sanitizes for SQL
-    static function tryGet($key) {
-        return isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+    // DOES NOT SANTISE FOR SQL
+    static function tryGet($key, $required = false) {
+        $value = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+        if ($required && $value == null) {
+            echo "<p>$key is required</p>";
+            exit(1);
+        }
+        else {
+            return $value;
+        }
     }
 
     // Exits with an error message if the query failed
