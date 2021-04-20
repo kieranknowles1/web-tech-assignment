@@ -3,8 +3,8 @@
     $root = $_SERVER['DOCUMENT_ROOT'];
     $title = "";
 
-    require "$root/header.php";
+    require "$root/lib/header.php";
 ?>
 <?php
-    require "$root/footer.php";
+    require "$root/lib/footer.php";
 ?>
