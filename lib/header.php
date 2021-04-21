@@ -16,6 +16,7 @@ if (!isset($searchQuery)) {
     <title><?php echo $title?></title>
     <link href="/style.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts.js"></script>
 </head>
 <body>
@@ -29,8 +30,8 @@ if (!isset($searchQuery)) {
             <input class="search" name="q" id="query" type="text" placeholder="Search" value="<?php echo $searchQuery ?>"> <!--TODO: Tab index-->
         </form>
         <a href="/">Home</a>
-        <a href="admin">Admin</a>
-        <a href="credits.php">Credits</a>
-        <a href="wireframes.php">Wireframes</a>
+        <a href="/admin">Admin</a>
+        <a href="/credits.php">Credits</a>
+        <a href="/wireframes.php">Wireframes</a>
     </nav>
 </div>
