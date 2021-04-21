@@ -40,7 +40,18 @@
     require "$root/lib/header.php";
 
     if ($deleting) {
-        echo "<p>Deleting category $catID</p>";
+        // Check that the category is unused
+        $sql = "SELECT null FROM LCG_holidays
+                WHERE catID = '$catID'";
+        $queryResult = utility::query($conn, $sql);
+
+        if ($queryResult->num_rows != 0) {
+            echo "<p>Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays</p>";
+            exit(1);
+        }
+        else {
+            echo "<p>Deleting category $catID</p>";
+        }
 
         $sql = "DELETE FROM LCG_category
                 WHERE catID = '$catID'

@@ -43,6 +43,13 @@
         $catDesc = $row->catDesc;
 
         $preview = "url(\"/images/category/$catID.jpg\")";
+
+        // Check for usage
+        $sql = "SELECT null
+                FROM LCG_holidays
+                WHERE catID = '$idSanatize'";
+        $queryResult = utility::query($conn, $sql);
+        $numUses = $queryResult->num_rows;
     }
 
     require "$root/lib/header.php";
@@ -70,7 +77,13 @@
     <!-- https://stackoverflow.com/questions/547821/two-submit-buttons-in-one-form -->
     <!-- https://stackoverflow.com/questions/18725078/bypass-html-required-attribute-when-submitting -->
     <input type="submit" name="action" value="Submit">
-    <input type="submit" name="action" value="Delete" formnovalidate onclick="confirmDelete(event);">
+    <input type="submit" name="action" value="Delete" formnovalidate onclick="confirmDelete(event);"
+    <?php
+        if ($numUses != 0) {
+            echo "disabled title='Cannot delete, category is in use by $numUses holidays'";
+        }
+    ?>
+    >
 </form>
 <?php
     require "$root/lib/footer.php";
