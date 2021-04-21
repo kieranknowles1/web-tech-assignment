@@ -147,6 +147,11 @@ nav a {
     grid-area: book;
 }
 
+/* Admin */
+img.preview  {
+    width: 500px;
+}
+
 /* Media Queries */
 @media screen and (orientation: landscape) {
     /* No ham menu */

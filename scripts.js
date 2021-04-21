@@ -2,37 +2,6 @@
 // Week 6: Workshop_responsive_menus
 // Retrieved from Blackboard 2021-03-05
 
-/* Usage:
-    Create an <a> with id="ham_menu" and href="javascript:void(0)"
-    use &#9776; for the icon
-
-    Add id="ham_nav" to the element that will be toggled
-
-    The class of ham_nav will be empty by default and "show" when the
-    menu should be displayed
-*/
-
-/*window.addEventListener('load', function () {
-    "use strict";
-
-    const nav_menu = document.getElementById('nav_menu');
-    const ham_button = document.getElementById('ham_button');
-    let menu_clicked = false;
-
-    function toggle() {	
-        if (menu_clicked) {
-            nav_menu.className = '';
-        }
-        else {
-            nav_menu.className = 'show';
-        }
-
-        menu_clicked = !menu_clicked;
-    } 
-
-    ham_button.addEventListener("click", toggle);
-});*/
-
 function ham_toggle(id) {
     console.log("clicked");
     menu = document.getElementById(id);
@@ -49,4 +18,39 @@ function ham_toggle(id) {
 function isEmpty(id) {
     element = document.getElementById(id);
     return element.value == "";
+}
+
+
+// File upload preview
+// https://codepen.io/mobifreaks/pen/LIbca
+// Retrieved 2021-04-21
+function readURL(input, preview) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(preview)
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function previewBackground(input, id) {
+    //console.log("Preview: " + input + id);
+    if (input.files && input.files[0]) {
+        //console.log("input.files");
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            //console.log($(id).css("background-image"));
+            //console.log(e.target.result)
+            $(id)
+                .css('background-image', "url('" + e.target.result + "')");
+            //console.log($(id).css("background-image"));
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
