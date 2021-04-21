@@ -53,9 +53,6 @@
     }
 
     require "$root/lib/header.php";
-
-    if ($isNew) echo "<p>new</p>";
-    else echo "<p>Not new</p>";
 ?>
 <form method="post" action="editCategoryProcess.php" enctype="multipart/form-data">
     <label>Description: 
