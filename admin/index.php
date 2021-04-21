@@ -38,14 +38,14 @@
     <option selected style="display:none">Select a Category</option>
     <?php
         while ($row = $queryResult->fetch_object()) {
-            echo "\t<option value='editHoliday.php?id=$row->catID'>$row->catDesc</option>\n";
+            echo "\t<option value='editCategory.php?id=$row->catID'>$row->catDesc</option>\n";
         }
     ?>
 </select>
 </label><br>
 
-<a href="newHoliday.php">New Holiday</a><br>
-<a href="newCategory.php">New Category</a>
+<a href="editHoliday.php">New Holiday</a><br>
+<a href="editCategory.php">New Category</a>
 
 
 <?php
