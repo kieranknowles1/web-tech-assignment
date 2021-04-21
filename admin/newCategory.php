@@ -18,7 +18,6 @@
     <label>Image (max 500kb): 
         <input type="file" name="image" accept="image/jpeg" onchange="previewBackground(this, '#preview-img')" required><!-- See scripts.js -->
     </label><br>
-    <!--<img id="preview" class="preview" src="http://placehold.it/500x300" alt="your image" /><br>-->
 
 
     <div class='holidayBox' id="preview-img" style='background-image: url("http://placehold.it/500x250")'>
