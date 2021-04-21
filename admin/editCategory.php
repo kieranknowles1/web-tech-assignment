@@ -77,13 +77,15 @@
     <!-- https://stackoverflow.com/questions/547821/two-submit-buttons-in-one-form -->
     <!-- https://stackoverflow.com/questions/18725078/bypass-html-required-attribute-when-submitting -->
     <input type="submit" name="action" value="Submit">
-    <input type="submit" name="action" value="Delete" formnovalidate onclick="confirmDelete(event);"
     <?php
-        if ($numUses != 0) {
-            echo "disabled title='Cannot delete, category is in use by $numUses holidays'";
+        if (!$isNew) {
+            echo "<input type='submit' name='action' value='Delete' formnovalidate onclick='confirmDelete(event);' ";
+            if ($numUses != 0) {
+                echo "disabled title='Cannot delete, category is in use by $numUses holidays'";
+            }
+            echo ">";
         }
     ?>
-    >
 </form>
 <?php
     require "$root/lib/footer.php";
