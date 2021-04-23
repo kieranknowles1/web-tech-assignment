@@ -69,7 +69,7 @@
 
     </div>
 
-    <?php if (!$isNew) echo "<input type='hidden' name='id' value='$catID'>"?>
+    <?php if (!$isNew) echo "<input type='hidden' name='id' value='$catID'>" /* Send ID of existing category */?>
 
     <!-- https://stackoverflow.com/questions/547821/two-submit-buttons-in-one-form -->
     <!-- https://stackoverflow.com/questions/18725078/bypass-html-required-attribute-when-submitting -->

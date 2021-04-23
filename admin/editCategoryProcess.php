@@ -1,5 +1,6 @@
 <?php
     // https://css-tricks.com/php-include-from-root/
+    global $root;
     $root = $_SERVER['DOCUMENT_ROOT'];
 
     require_once "$root/lib/database_conn.php";
@@ -9,13 +10,13 @@
 
     $catID = $conn->real_escape_string(utility::tryGet("id"));
 
-    $deleting = false;
     if ($catID == null) {
-        $isNew = true;
         $title = "New Category Submit";
+        require "$root/lib/header.php";
+
+        newCategory($desc);
     }
     else {
-        $isNew = false;
         $title = "Update category submit";
 
         // Check that ID is valud
@@ -31,46 +32,105 @@
 
         // Are we deleting?
         // https://stackoverflow.com/questions/547821/two-submit-buttons-in-one-form
-        if (utility::tryGet("action", true) == "Delete") {
-            $title = "Delete category";
-            $deleting = true;
+        $deleting = utility::tryGet("action", true) == "Delete";
+
+        if ($deleting) {
+            $title = "Delete Category";
+            require "$root/lib/header.php";
+            deleteCategory($catID);
+        }
+        else {
+            $title = "Edit Category";
+            require "$root/lib/header.php";
+            updateCategory($catID, $desc);
         }
     }
-    
-    require "$root/lib/header.php";
 
-    if ($deleting) {
+    require "$root/lib/footer.php";
+
+    function newCategory($desc) {
+        // Generate ID
+        // Database uses string for ID so this is necessary
+        // https://stackoverflow.com/questions/6296822/how-to-format-numbers-with-00-prefixes-in-php
+        $catID = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+        echo "<p>ID: $catID</p>";
+
+        // Check that an image was uploaded
+        $tmpName = checkForImage(true);
+
+        echo "<p>Description: $desc</p>";
+
+        // Check for duplicate category
+        $sql = "SELECT null
+                FROM LCG_category
+                WHERE lower(catDesc) = lower('$desc')";
+        $queryResult = utility::query($conn, $sql);
+
+        if ($queryResult->num_rows != 0) {
+            echo "<p>There is already a category named $desc</p>";
+            exit(1);
+        }
+        echo "<p>Adding to database</p>";
+
+        // Actually upload the image
+        if ($tmpName != null) {
+            $targetFile = "$root/images/category/$catID.jpg";
+            uploadImage($tmpName, $targetFile);
+        }
+
+        // Add to database
+        $sql = "INSERT INTO LCG_category (catID, catDesc)
+                VALUES ('$catID', '$desc');";
+        //$queryResult = utility::query($conn, $sql);
+    }
+
+    function updateCategory($id, $desc) {
+        global $conn;
+
+        // Update existing
+        echo "<p>Updating existing category id=$id</p>";
+        $sql = "UPDATE LCG_category
+                SET catDesc = '$desc'
+                WHERE catID = '$id'";
+        $queryResult = utility::query($conn, $sql);
+
+        // Upload image if provided
+        $imgName = checkForImage(false);
+        if ($imgName != null) {
+            uploadImage($imgName);
+        }
+    }
+
+    function deleteCategory($id) {
+        global $conn, $root;
+
         // Check that the category is unused
         $sql = "SELECT null FROM LCG_holidays
-                WHERE catID = '$catID'";
+                WHERE catID = '$id'";
         $queryResult = utility::query($conn, $sql);
 
         if ($queryResult->num_rows != 0) {
             echo "<p>Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays</p>";
             exit(1);
         }
-        else {
-            echo "<p>Deleting category $catID</p>";
-        }
+        echo "<p>Deleting category $id</p>";
 
         $sql = "DELETE FROM LCG_category
-                WHERE catID = '$catID'
+                WHERE catID = '$id'
                 LIMIT 1"; // Safety
         $queryResult = utility::query($conn, $sql);
 
-        $imgFile = "$root/images/category/$catID.jpg";
+        $imgFile = "$root/images/category/$id.jpg";
         echo "<p>Image: $imgFile</p>";
         unlink($imgFile);
     }
-    else {
-        // Validate image
-        // https://www.w3schools.com/php/php_file_upload.asp
+
+    function checkForImage($required) {
+    // Validate image
+    // https://www.w3schools.com/php/php_file_upload.asp
         $tmpName = $_FILES["image"]["tmp_name"];
         if ($tmpName != null) {
-            $doImg = true;
             echo "<p>$tmpName</p>";
-
-            echo "<p>Description: $desc</p>";
 
 
             $check = getimagesize($tmpName);
@@ -85,64 +145,29 @@
             $mimeType = $check["mime"];
             if ($mimeType != "image/jpeg") {
                 echo "<p>Expected image/jpeg but got $mimeType";
+                exit(1);
             }
 
             if ($_FILES["image"]["size"] > 500000) {
                 echo "<p>Image is too large</p>";
+                exit(1);
             }
+
+            return $tmpName;
         }
         else {
-            if ($isNew) {
+            if ($required) {
                 echo "<p>Expected an image</p>";
                 exit(1);
             }
-            else {
-                $doImg = false;
-            }
-        }
-
-        if ($isNew) {
-            // Check for duplicate category
-            $sql = "SELECT null
-                    FROM LCG_category
-                    WHERE lower(catDesc) = lower('$desc')";
-            $queryResult = utility::query($conn, $sql);
-
-            if ($queryResult->num_rows != 0) {
-                echo "<p>There is already a category named $desc</p>";
-                exit(1);
-            }
-            echo "<p>Adding to database</p>";
-            // Generate ID
-            // Database uses string for ID so this is necessary
-            // https://stackoverflow.com/questions/6296822/how-to-format-numbers-with-00-prefixes-in-php
-            $catID = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
-            echo "<p>ID: $catID</p>";
-
-            // Add to database
-            $sql = "INSERT INTO LCG_category (catID, catDesc)
-                    VALUES ('$catID', '$desc');";
-            $queryResult = utility::query($conn, $sql);
-        }
-        else {
-            // Update existing
-            echo "<p>Updating existing category id=$catID</p>";
-            $sql = "UPDATE LCG_category
-                    SET catDesc = '$desc'
-                    WHERE catID = '$catID'";
-            $queryResult = utility::query($conn, $sql);
-            
-        }
-
-        // Upload image if necessary
-        if ($doImg) {
-            echo "<p>Uploading image</p>";
-            $targetFile = "$root/images/category/$catID.jpg";
-            echo "<p>Image file: $targetFile</p>";
-
-            move_uploaded_file($tmpName, $targetFile);
+            else return null;
         }
     }
 
-    require "$root/lib/footer.php";
+    function uploadImage($src, $dest) {
+        echo "<p>Uploading image</p>";
+        echo "<p>Image file: $dest</p>";
+
+        move_uploaded_file($src, $dest);
+    }
 ?>
