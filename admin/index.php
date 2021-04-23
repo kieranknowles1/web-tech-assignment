@@ -11,7 +11,7 @@
                 FROM LCG_holidays
                 ORDER BY holidayTitle";
     
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 ?>
 <label>Edit Holiday: 
 <select name="editHoliday" onchange="location = this.value;">
@@ -30,7 +30,7 @@
                 FROM LCG_category
                 ORDER BY catDesc";
     
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 ?>
 
 <label>Edit Category: 

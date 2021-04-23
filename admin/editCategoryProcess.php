@@ -24,7 +24,7 @@
         FROM LCG_category
         WHERE catID = '$catID'
         LIMIT 1";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
         if ($queryResult->num_rows == 0) {
             echo "<p>Invalid category id $catID</p>";
             exit(1);
@@ -49,6 +49,8 @@
     require "$root/lib/footer.php";
 
     function newCategory($desc) {
+        global $root;
+
         // Generate ID
         // Database uses string for ID so this is necessary
         // https://stackoverflow.com/questions/6296822/how-to-format-numbers-with-00-prefixes-in-php
@@ -64,7 +66,7 @@
         $sql = "SELECT null
                 FROM LCG_category
                 WHERE lower(catDesc) = lower('$desc')";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
             echo "<p>There is already a category named $desc</p>";
@@ -81,7 +83,7 @@
         // Add to database
         $sql = "INSERT INTO LCG_category (catID, catDesc)
                 VALUES ('$catID', '$desc');";
-        //$queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
     }
 
     function updateCategory($id, $desc) {
@@ -92,7 +94,7 @@
         $sql = "UPDATE LCG_category
                 SET catDesc = '$desc'
                 WHERE catID = '$id'";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
 
         // Upload image if provided
         $imgName = checkForImage(false);
@@ -107,7 +109,7 @@
         // Check that the category is unused
         $sql = "SELECT null FROM LCG_holidays
                 WHERE catID = '$id'";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
             echo "<p>Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays</p>";
@@ -118,7 +120,7 @@
         $sql = "DELETE FROM LCG_category
                 WHERE catID = '$id'
                 LIMIT 1"; // Safety
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
 
         $imgFile = "$root/images/category/$id.jpg";
         echo "<p>Image: $imgFile</p>";

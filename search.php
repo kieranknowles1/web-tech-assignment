@@ -30,7 +30,7 @@
             WHERE LCG_holidays.holidayTitle LIKE '%$searchQuery%'
             OR    LCG_location.country LIKE '%$searchQuery%'";
 
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
     if ($queryResult->num_rows != 0) {
         holidayList($queryResult);
     }

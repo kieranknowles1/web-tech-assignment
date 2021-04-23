@@ -32,7 +32,7 @@
                 FROM LCG_category
                 WHERE catID = '$idSanatize'
                 LIMIT 1";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows == 0) {
             echo "<p>Invalid category $catID</p>";
@@ -48,7 +48,7 @@
         $sql = "SELECT null
                 FROM LCG_holidays
                 WHERE catID = '$idSanatize'";
-        $queryResult = utility::query($conn, $sql);
+        $queryResult = utility::query($sql);
         $numUses = $queryResult->num_rows;
     }
 

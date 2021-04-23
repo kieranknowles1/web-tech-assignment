@@ -19,7 +19,7 @@
             WHERE catID = '$catID'
             LIMIT 1";
 
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 
     if($queryResult->num_rows == 0) {
         http_response_code(400);
@@ -43,7 +43,7 @@
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
             WHERE LCG_holidays.catID='$catID'";
 
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 
     holidayList($queryResult);
     ?>

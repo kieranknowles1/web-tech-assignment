@@ -19,7 +19,7 @@
     $sql = "SELECT catID, catDesc
             FROM LCG_category";
     
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 
     while ($row = $queryResult->fetch_object()) {
         // Use inline css for backgroud
@@ -41,7 +41,7 @@
             FROM LCG_holidays
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID";
 
-    $queryResult = utility::query($conn, $sql);
+    $queryResult = utility::query($sql);
 
     holidayList($queryResult);
 ?>

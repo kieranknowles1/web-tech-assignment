@@ -30,7 +30,8 @@ class utility {
     }*/
 
     // Runs then validates a query, returns the result
-    static function query($conn, $sql) {
+    static function query($sql) {
+        global $conn;
         $result = $conn->query($sql);
 
         if ($result === false) {
