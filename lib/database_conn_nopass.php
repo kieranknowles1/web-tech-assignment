@@ -12,6 +12,8 @@ $password = "********"; // oops, this is why you use password managers
 $dbname = "unn_w20013000";
 
 // Create connection
+// https://www.php.net/manual/en/language.variables.scope.php
+global $conn;
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
