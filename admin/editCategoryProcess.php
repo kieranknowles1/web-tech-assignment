@@ -6,6 +6,8 @@
     require_once "$root/lib/database_conn.php";
     require_once "$root/lib/utility.php";
 
+    require_once "imageLib.php";
+
     $desc = $conn->real_escape_string(utility::tryGet("desc", true));
 
     $catID = $conn->real_escape_string(utility::tryGet("id"));
@@ -125,51 +127,5 @@
         $imgFile = "$root/images/category/$id.jpg";
         echo "<p>Image: $imgFile</p>";
         unlink($imgFile);
-    }
-
-    function checkForImage($required) {
-    // Validate image
-    // https://www.w3schools.com/php/php_file_upload.asp
-        $tmpName = $_FILES["image"]["tmp_name"];
-        if ($tmpName != null) {
-            echo "<p>$tmpName</p>";
-
-
-            $check = getimagesize($tmpName);
-            if ($check !== false) {
-                echo "File is an image.";
-            }
-            else {
-                echo "<p>File is not an image</p>";
-                exit(1);
-            }
-
-            $mimeType = $check["mime"];
-            if ($mimeType != "image/jpeg") {
-                echo "<p>Expected image/jpeg but got $mimeType";
-                exit(1);
-            }
-
-            if ($_FILES["image"]["size"] > 500000) {
-                echo "<p>Image is too large</p>";
-                exit(1);
-            }
-
-            return $tmpName;
-        }
-        else {
-            if ($required) {
-                echo "<p>Expected an image</p>";
-                exit(1);
-            }
-            else return null;
-        }
-    }
-
-    function uploadImage($src, $dest) {
-        echo "<p>Uploading image</p>";
-        echo "<p>Image file: $dest</p>";
-
-        move_uploaded_file($src, $dest);
     }
 ?>
