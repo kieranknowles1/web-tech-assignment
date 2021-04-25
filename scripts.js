@@ -57,8 +57,8 @@ function previewBackground(input, id) {
 
 // Confirm before submission
 // https://stackoverflow.com/questions/16849117/html-how-to-do-a-confirmation-popup-to-a-submit-button-and-then-send-the-reque
-function confirmDelete(event) {
-    choice = confirm("Are you sure you want to delete this category?")
+function confirmDelete(event, type) {
+    choice = confirm("Are you sure you want to delete this " + type + "?");
     //console.log(choice);
     //alert(1);
     if (!choice) {

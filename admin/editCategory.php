@@ -55,7 +55,7 @@
     require "$root/lib/header.php";
 ?>
 <form method="post" action="editCategoryProcess.php" enctype="multipart/form-data">
-    <label>Description: 
+    <label>Title: 
         <input type="text" name="desc" value="<?php echo $catDesc?>" onchange="$('#preview-title').text(this.value)" required></input>
     </label><br>
 
@@ -76,7 +76,7 @@
     <input type="submit" name="action" value="Submit">
     <?php
         if (!$isNew) {
-            echo "<input type='submit' name='action' value='Delete' formnovalidate onclick='confirmDelete(event);' ";
+            echo "<input type='submit' name='action' value='Delete' formnovalidate onclick='confirmDelete(event, \"category\");' ";
             if ($numUses != 0) {
                 echo "disabled title='Cannot delete, category is in use by $numUses holidays'";
             }
