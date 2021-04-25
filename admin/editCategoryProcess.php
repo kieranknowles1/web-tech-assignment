@@ -77,10 +77,8 @@
         echo "<p>Adding to database</p>";
 
         // Actually upload the image
-        if ($tmpName != null) {
-            $targetFile = "$root/images/category/$catID.jpg";
-            uploadImage($tmpName, $targetFile);
-        }
+        $targetFile = "$root/images/category/$catID.jpg";
+        uploadImage($tmpName, $targetFile);
 
         // Add to database
         $sql = "INSERT INTO LCG_category (catID, catDesc)

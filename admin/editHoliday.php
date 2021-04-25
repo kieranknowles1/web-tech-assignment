@@ -25,6 +25,8 @@
         $country = "Country";
         $locID = "-1"; // Why is this a varchar()?
 
+        $catID = "-1"; // Same here
+
         $preview = "url(\"http://placehold.it/500x250\")";
     }
     else {
@@ -37,7 +39,8 @@
         $sql = "SELECT LCG_holidays.holidayTitle, LCG_holidays.holidayDescription,
                        LCG_holidays.holidayDuration, LCG_holidays.locationID,
                        LCG_holidays.holidayPrice,
-                       LCG_location.country
+                       LCG_location.country,
+                       LCG_holidays.catID
                 FROM LCG_holidays
                 INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
                 WHERE holidayID = '$idSanatize'
@@ -57,6 +60,8 @@
         $country = $row->country;
         $locID = $row->locationID;
 
+        $catID = $row->catID;
+
         $preview = "url(\"/images/holiday/$holID.jpg\")";
     }
 
@@ -66,23 +71,42 @@
             FROM LCG_location";
     $locQuery = utility::query($sql);
 
+    // Categories
+    $sql = "SELECT catID, catDesc
+            FROM LCG_category";
+    $catQuery = utility::query($sql);
+
     require "$root/lib/header.php";
 ?>
 <form method="post" action="editHolidayProcess.php" enctype="multipart/form-data">
     <label>Title: 
-        <input type="text" name="desc" value="<?php echo $holTitle?>" onchange="$('#preview-title').text(this.value)" required>
+        <input type="text" name="title" value="<?php echo $holTitle?>" onchange="$('#preview-title').text(this.value)" required>
     </label><br>
 
     <label>Location:
-        <select name="location" onchange="updateLocation(this)">
-            <option <?php if ($locID=="-1") echo "selected"?> style="display:none">Select a Location</option>
+        <select name="locID" onchange="updateLocation(this)" required>
+            <option <?php if ($locID=="-1") echo "selected"?> value="" disabled>Select a Location</option>
             <?php
                 while ($row = $locQuery->fetch_object()) {
-                    $curLocId = $row->locationID;
+                    $curLocID = $row->locationID;
                     $locName = $row->locationName;
                     $locCountry = $row->country;
 
-                    echo "\t<option value='$curLocId' id='loc$curLocId'>$locName - $locCountry</option>\n";
+                    echo "\t<option value='$curLocID' id='loc$curLocID'>$locName, $locCountry</option>\n";
+                }
+            ?>
+        </select>
+    </label><br>
+
+    <label>Category: 
+        <select name="catID">
+            <option <?php if ($catID=="-1") echo "selected"?> value="" disabled>Select a Category</option>
+            <?php
+                while ($row = $catQuery->fetch_object()) {
+                    $curCatID = $row->catID;
+                    $curCatName = $row->catDesc;
+
+                    echo "\t<option value='$curCatID'>$curCatName</option>\n";
                 }
             ?>
         </select>
@@ -90,6 +114,10 @@
 
     <label>Duration: 
         <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="$('#preview-duration').text(this.value + ' nights')" required>
+    </label><br>
+
+    <label>Description: 
+        <textarea name="description" placeholder="Description" required></textarea>
     </label><br>
 
     <label>Price: 
