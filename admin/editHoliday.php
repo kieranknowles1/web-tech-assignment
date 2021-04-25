@@ -55,6 +55,7 @@
 
         $row = $queryResult->fetch_object();
         $holTitle = $row->holidayTitle;
+        $description = $row->holidayDescription;
         $duration = $row->holidayDuration;
         $price = (int)$row->holidayPrice;
 
@@ -119,7 +120,7 @@
     </label><br>
 
     <label>Description: 
-        <textarea name="description" placeholder="Description" required></textarea>
+        <textarea name="description" placeholder="Description" required><?php echo $description?></textarea>
     </label><br>
 
     <label>Price: 
