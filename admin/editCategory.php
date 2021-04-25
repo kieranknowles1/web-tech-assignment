@@ -56,7 +56,7 @@
 ?>
 <form method="post" action="editCategoryProcess.php" enctype="multipart/form-data">
     <label>Title: 
-        <input type="text" name="desc" value="<?php echo $catDesc?>" onchange="$('#preview-title').text(this.value)" required></input>
+        <input type="text" name="desc" value="<?php echo $catDesc?>" onchange="$('#preview-title').text(this.value)" required>
     </label><br>
 
     <label>Image (max 500kb): 

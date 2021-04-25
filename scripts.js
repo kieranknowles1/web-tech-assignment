@@ -65,3 +65,9 @@ function confirmDelete(event, type) {
         event.preventDefault();
     }
 }
+
+// Used on editHoliday.php
+function updateLocation(self) {
+    realText = $('#loc' + self.value).text();
+    $('#preview-location').text(realText);
+}
