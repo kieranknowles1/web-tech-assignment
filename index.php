@@ -37,7 +37,7 @@
 <?php
     // Holidays
     $sql = "SELECT LCG_holidays.holidayID, LCG_holidays.holidayTitle, LCG_holidays.holidayDuration, LCG_holidays.holidayPrice,
-                   LCG_location.country
+                   LCG_location.country, LCG_location.locationName
             FROM LCG_holidays
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID";
 

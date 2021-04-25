@@ -45,7 +45,7 @@ function holidayList($queryResult) {
 
         boxBegin($row->holidayID, "holiday", $row->holidayTitle);
 
-        echo "<span class='country'>$row->country</span></p>\n";
+        echo "<span class='country'>$row->locationName, $row->country</span></p>\n";
         
         echo "<p>$row->holidayDuration nights</p>";
     

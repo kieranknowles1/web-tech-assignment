@@ -22,6 +22,7 @@
         $duration = "???";
         $price = "???";
 
+        $location = "Location";
         $country = "Country";
         $locID = "-1"; // Why is this a varchar()?
 
@@ -39,7 +40,7 @@
         $sql = "SELECT LCG_holidays.holidayTitle, LCG_holidays.holidayDescription,
                        LCG_holidays.holidayDuration, LCG_holidays.locationID,
                        LCG_holidays.holidayPrice,
-                       LCG_location.country,
+                       LCG_location.country, LCG_location.locationName,
                        LCG_holidays.catID
                 FROM LCG_holidays
                 INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
@@ -57,6 +58,7 @@
         $duration = $row->holidayDuration;
         $price = (int)$row->holidayPrice;
 
+        $location = $row->locationName;
         $country = $row->country;
         $locID = $row->locationID;
 
@@ -133,7 +135,7 @@
     <div class="holidayBox" id="preview-img" style='background-image: <?php echo $preview; ?>'>
         <p class="title">
             <span id="preview-title"><?php echo $holTitle; ?></span>
-            <span class="country" id="preview-location"><?php echo $country?></span>
+            <span class="country" id="preview-location"><?php echo "$location, $country"?></span>
         </p>
         <p id="preview-duration"><?php echo $duration?> nights</p>
         <p id="preview-price">£<?php echo $price?></p>
