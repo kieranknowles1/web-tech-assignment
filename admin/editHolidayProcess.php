@@ -7,6 +7,17 @@
         public $locID;
         public $catID;
         public $price;
+        public $altText;
+    }
+
+    function printDetails($details) {
+        echo "<p>Title: $details->title</p>";
+        echo "<p>Description: $details->description</p>";
+        echo "<p>Duration: $details->duration</p>";
+        echo "<p>locID: $details->locID</p>";
+        echo "<p>catID: $details->catID</p>";
+        echo "<p>Price: $details->price</p>";
+        echo "<p>Alt text: $details->altText</p>";
     }
 
     // https://css-tricks.com/php-include-from-root/
@@ -28,6 +39,7 @@
     $details->locID = $conn->real_escape_string(utility::tryGet("locID", true));
     $details->catID = $conn->real_escape_string(utility::tryGet("catID", true));
     $details->price = $conn->real_escape_string(utility::tryGet("price", true));
+    $details->altText = $conn->real_escape_string(utility::tryGet("altText", true));
 
     $holID = $conn->real_escape_string(utility::tryGet("id"));
 
@@ -86,14 +98,7 @@
         public $catID;
         public $price;
         */
-
-
-        echo "<p>Title: $details->title</p>";
-        echo "<p>Description: $details->description</p>";
-        echo "<p>Duration: $details->duration</p>";
-        echo "<p>locID: $details->locID</p>";
-        echo "<p>catID: $details->catID</p>";
-        echo "<p>Price: $details->price</p>";
+        printDetails($details);
 
         // Check for duplicate
         $sql = "SELECT NULL
@@ -112,12 +117,14 @@
         $sql = "INSERT INTO LCG_holidays (
                     holidayTitle, holidayDescription,
                     holidayDuration, locationID,
-                    catID, holidayPrice
+                    catID, holidayPrice,
+                    altText
                 )
                 VALUES (
                     '$details->title', '$details->description',
                     '$details->duration', '$details->locID',
-                    '$details->catID', '$details->price'
+                    '$details->catID', '$details->price',
+                    '$details->altText'
                 )";
         utility::query($sql);
         $id = mysqli_insert_id($conn);
@@ -130,13 +137,7 @@
     }
 
     function updateHoliday($id, $details) {
-        echo "<p>ID: $id</p>";
-        echo "<p>Title: $details->title</p>";
-        echo "<p>Description: $details->description</p>";
-        echo "<p>Duration: $details->duration</p>";
-        echo "<p>locID: $details->locID</p>";
-        echo "<p>catID: $details->catID</p>";
-        echo "<p>Price: $details->price</p>";
+        printDetails($details);
 
         echo "<p>Updating existing holiday $id</p>";
 
@@ -146,7 +147,8 @@
                     holidayDuration = '$details->duration',
                     locationID = '$details->locID',
                     catID = '$details->catID',
-                    holidayPrice = '$details->price'
+                    holidayPrice = '$details->price',
+                    altText = '$details->altText'
                 WHERE holidayID = $id
                 LIMIT 1"; // Safety
         $queryResult = utility::query($sql);

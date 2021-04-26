@@ -21,6 +21,7 @@
         $holTitle = "";
         $duration = "???";
         $price = "???";
+        $altText = "";
 
         $location = "Location";
         $country = "Country";
@@ -39,7 +40,7 @@
 
         $sql = "SELECT LCG_holidays.holidayTitle, LCG_holidays.holidayDescription,
                        LCG_holidays.holidayDuration, LCG_holidays.locationID,
-                       LCG_holidays.holidayPrice,
+                       LCG_holidays.holidayPrice, LCG_holidays.altText,
                        LCG_location.country, LCG_location.locationName,
                        LCG_holidays.catID
                 FROM LCG_holidays
@@ -58,6 +59,7 @@
         $description = $row->holidayDescription;
         $duration = $row->holidayDuration;
         $price = (int)$row->holidayPrice;
+        $altText = $row->altText;
 
         $location = $row->locationName;
         $country = $row->country;
@@ -130,6 +132,10 @@
     <label>Image (max 500kb): 
         <input type="file" name="image" accept="image/jpeg" onchange="previewBackground(this, '#preview-img')" <?php if($isNew) echo "required";?>><!-- See scripts.js -->
     </label><br>
+
+    <label>Alt text:
+        <textarea name="altText" placeholder="Alt text" required><?php echo $altText?></textarea>
+    </label>
 
     <!-- Preview -->
     

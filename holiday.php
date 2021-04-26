@@ -15,7 +15,7 @@
 
 
     $sql = "SELECT LCG_holidays.holidayTitle, LCG_holidays.holidayDuration, LCG_holidays.holidayPrice,
-                   LCG_holidays.holidayDescription,
+                   LCG_holidays.holidayDescription, LCG_holidays.altText,
                    LCG_location.locationName, LCG_location.country,
                    LCG_category.catDesc
             FROM LCG_holidays
@@ -50,15 +50,12 @@
         $image = "images/default_background";
     }
 
-    // TODO: Use the database for this
-    $alt = file_get_contents($image . "_alt.txt");
-
     echo "\t<div class='header'><h2 class='header'>$row->holidayTitle</h2></div>\n";
     echo "\t<div class='type'>$aOrAn $category holiday</div>\n";
     echo "\t<div class='description'>$row->holidayDescription</div>\n";
     echo "\t<div class='location'>$row->locationName</div>\n";
     echo "\t<div class='country'>$row->country</div>\n";
-    echo "\t<div class='images'><img src='$image.jpg' alt='$alt'></div>\n";
+    echo "\t<div class='images'><img src='$image.jpg' alt='$row->altText'></div>\n";
     echo "\t<div class='duration'>$row->holidayDuration nights</div>\n";
     echo "\t<div class='price'>£$row->holidayPrice</div>\n";
     echo "\t<a class='book' href=''><p>Book now!</p></a>\n"
