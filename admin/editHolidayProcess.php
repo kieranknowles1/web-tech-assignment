@@ -154,26 +154,17 @@
         }
     }
 
-    function deleteCategory($id) {
-        global $conn, $root;
+    function deleteHoliday($id) {
+        global $root;
 
-        // Check that the category is unused
-        $sql = "SELECT null FROM LCG_holidays
-                WHERE catID = '$id'";
-        $queryResult = utility::query($sql);
+        echo "<p>Deleting holiday $id</p>";
 
-        if ($queryResult->num_rows != 0) {
-            echo "<p>Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays</p>";
-            exit(1);
-        }
-        echo "<p>Deleting category $id</p>";
-
-        $sql = "DELETE FROM LCG_category
-                WHERE catID = '$id'
+        $sql = "DELETE FROM LCG_holidays
+                WHERE holidayID = '$id'
                 LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
 
-        $imgFile = "$root/images/category/$id.jpg";
+        $imgFile = "$root/images/holiday/$id.jpg";
         echo "<p>Image: $imgFile</p>";
         unlink($imgFile);
     }
