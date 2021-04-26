@@ -63,7 +63,7 @@
         else {
             $title = "Edit Holiday";
             require "$root/lib/header.php";
-            updateHoliday($holID, $desc);
+            updateHoliday($holID, $details);
         }
     }
 
@@ -129,29 +129,27 @@
         uploadImage($tmpName, $targetFile);
     }
 
-    function newCategory($desc) {
+    function updateHoliday($id, $details) {
+        echo "<p>ID: $id</p>";
+        echo "<p>Title: $details->title</p>";
+        echo "<p>Description: $details->description</p>";
+        echo "<p>Duration: $details->duration</p>";
+        echo "<p>locID: $details->locID</p>";
+        echo "<p>catID: $details->catID</p>";
+        echo "<p>Price: $details->price</p>";
 
-        // Add to database
-        $sql = "INSERT INTO LCG_category (catID, catDesc)
-                VALUES ('$catID', '$desc');";
+        echo "<p>Updating existing holiday $id</p>";
+
+        $sql = "UPDATE LCG_holidays
+                SET holidayTitle = '$details->title',
+                    holidayDescription = '$details->description',
+                    holidayDuration = '$details->duration',
+                    locationID = '$details->locID',
+                    catID = '$details->catID',
+                    holidayPrice = '$details->price'
+                WHERE holidayID = $id
+                LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
-    }
-
-    function updateCategory($id, $desc) {
-        global $conn;
-
-        // Update existing
-        echo "<p>Updating existing category id=$id</p>";
-        $sql = "UPDATE LCG_category
-                SET catDesc = '$desc'
-                WHERE catID = '$id'";
-        $queryResult = utility::query($sql);
-
-        // Upload image if provided
-        $imgName = checkForImage(false);
-        if ($imgName != null) {
-            uploadImage($imgName);
-        }
     }
 
     function deleteHoliday($id) {
