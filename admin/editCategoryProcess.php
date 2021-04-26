@@ -87,7 +87,7 @@
     }
 
     function updateCategory($id, $desc) {
-        global $conn;
+        global $root;
 
         // Update existing
         echo "<p>Updating existing category id=$id</p>";
@@ -97,14 +97,15 @@
         $queryResult = utility::query($sql);
 
         // Upload image if provided
-        $imgName = checkForImage(false);
-        if ($imgName != null) {
-            uploadImage($imgName);
+        $tmpName = checkForImage(false);
+        if ($tmpName != null) {
+            $imgFile = "$root/images/category/$id.jpg";
+            uploadImage($tmpName, $imgFile);
         }
     }
 
     function deleteCategory($id) {
-        global $conn, $root;
+        global $root;
 
         // Check that the category is unused
         $sql = "SELECT null FROM LCG_holidays
