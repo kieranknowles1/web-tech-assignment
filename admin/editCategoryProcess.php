@@ -93,7 +93,8 @@
         echo "<p>Updating existing category id=$id</p>";
         $sql = "UPDATE LCG_category
                 SET catDesc = '$desc'
-                WHERE catID = '$id'";
+                WHERE catID = '$id'
+                LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
 
         // Upload image if provided
