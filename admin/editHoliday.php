@@ -94,10 +94,11 @@
             <?php
                 while ($row = $locQuery->fetch_object()) {
                     $curLocID = $row->locationID;
-                    $locName = $row->locationName;
-                    $locCountry = $row->country;
 
-                    echo "\t<option value='$curLocID' id='loc$curLocID'>$locName, $locCountry</option>\n";
+                    $autoSelect = "";
+                    if ($locID == $curLocID) $autoSelect = "selected";
+
+                    echo "\t<option $autoSelect value='$curLocID' id='loc$curLocID'>$row->locationName, $row->country</option>\n";
                 }
             ?>
         </select>
@@ -109,9 +110,11 @@
             <?php
                 while ($row = $catQuery->fetch_object()) {
                     $curCatID = $row->catID;
-                    $curCatName = $row->catDesc;
 
-                    echo "\t<option value='$curCatID'>$curCatName</option>\n";
+                    $autoSelect = "";
+                    if ($catID == $curCatID) $autoSelect = "selected";
+
+                    echo "\t<option $autoSelect value='$curCatID'>$row->catDesc</option>\n";
                 }
             ?>
         </select>
