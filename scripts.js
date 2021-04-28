@@ -37,7 +37,7 @@ function readURL(input, preview) {
     }
 }
 
-function previewBackground(input, id) {
+function previewBackground(input, previewID, fullID) {
     //console.log("Preview: " + input + id);
     if (input.files && input.files[0]) {
         //console.log("input.files");
@@ -46,9 +46,12 @@ function previewBackground(input, id) {
         reader.onload = function (e) {
             //console.log($(id).css("background-image"));
             //console.log(e.target.result)
-            $(id)
+            $(previewID)
                 .css('background-image', "url('" + e.target.result + "')");
             //console.log($(id).css("background-image"));
+
+            $(fullID)
+                .attr('src', e.target.result)
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -70,4 +73,33 @@ function confirmDelete(event, type) {
 function updateLocation(self) {
     realText = $('#loc' + self.value).text();
     $('#preview-location').text(realText);
+    
+    seperate = realText.split(", ");
+    $('#full-location').text(seperate[0]);
+    $('#full-country').text(seperate[1]);
+}
+
+function updateCategory(self) {
+    realText = $('#cat' + self.value).text().toLowerCase();
+
+
+    $('#full-category').text(aOrAn(realText) + " " + realText + " holiday");
+}
+
+// Set text of multiple elements at once
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+function setText(elements, text) {
+    elements.forEach((element) => {
+        $(element).text(text);
+    })
+}
+
+function aOrAn(string) {
+    first = string[0].toLowerCase();
+    if ('aeiou'.includes(first)) {
+        return 'An';
+    }
+    else {
+        return 'A';
+    }
 }

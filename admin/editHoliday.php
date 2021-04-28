@@ -19,17 +19,20 @@
         $title = "New holiday";
 
         $holTitle = "";
+        $description = "";
         $duration = "???";
         $price = "???";
         $altText = "";
 
         $location = "Location";
+        $category = "Category";
         $country = "Country";
         $locID = "-1"; // Why is this a varchar()?
 
         $catID = "-1"; // Same here
 
-        $preview = "url(\"http://placehold.it/500x250\")";
+        $image = "http://placehold.it/500x250";
+        $preview = "url(\"$image\")";
     }
     else {
         // Fill preview
@@ -42,9 +45,10 @@
                        LCG_holidays.holidayDuration, LCG_holidays.locationID,
                        LCG_holidays.holidayPrice, LCG_holidays.altText,
                        LCG_location.country, LCG_location.locationName,
-                       LCG_holidays.catID
+                       LCG_holidays.catID, LCG_category.catDesc
                 FROM LCG_holidays
                 INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
+                INNER JOIN LCG_category ON LCG_holidays.catID=LCG_category.catID
                 WHERE holidayID = '$idSanatize'
                 LIMIT 1";
         $queryResult = utility::query($sql);
@@ -62,12 +66,18 @@
         $altText = $row->altText;
 
         $location = $row->locationName;
+
+        $category = strtolower($row->catDesc);
+        $aOrAn = strstr("aeiou", $category[0]) ? 'An' : 'A';
+        $catDesc = "$aOrAn $category holiday";
+
         $country = $row->country;
         $locID = $row->locationID;
 
         $catID = $row->catID;
 
-        $preview = "url(\"/images/holiday/$holID.jpg\")";
+        $image = "/images/holiday/$holID.jpg";
+        $preview = "url(\"$image\")";
     }
 
     // Locations
@@ -85,7 +95,7 @@
 ?>
 <form method="post" action="editHolidayProcess.php" enctype="multipart/form-data">
     <label>Title: 
-        <input type="text" name="title" value="<?php echo $holTitle?>" onchange="$('#preview-title').text(this.value)" required>
+        <input type="text" name="title" value="<?php echo $holTitle?>" onchange="setText(['#preview-title', '#full-title'], this.value)  //$('#preview-title').text(this.value)" required>
     </label><br>
 
     <label>Location:
@@ -105,7 +115,7 @@
     </label><br>
 
     <label>Category: 
-        <select name="catID">
+        <select name="catID" onchange="updateCategory(this)" required>
             <option <?php if ($catID=="-1") echo "selected"?> value="" disabled>Select a Category</option>
             <?php
                 while ($row = $catQuery->fetch_object()) {
@@ -114,43 +124,31 @@
                     $autoSelect = "";
                     if ($catID == $curCatID) $autoSelect = "selected";
 
-                    echo "\t<option $autoSelect value='$curCatID'>$row->catDesc</option>\n";
+                    echo "\t<option $autoSelect value='$curCatID' id='cat$curCatID'>$row->catDesc</option>\n";
                 }
             ?>
         </select>
     </label><br>
 
     <label>Duration: 
-        <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="$('#preview-duration').text(this.value + ' nights')" required>
+        <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], '£' + this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
     </label><br>
 
     <label>Description: 
-        <textarea name="description" placeholder="Description" required><?php echo $description?></textarea>
+        <textarea name="description" placeholder="Description" onchange="setText(['#full-desc'], this.value)" required><?php echo $description?></textarea>
     </label><br>
 
     <label>Price: 
-        <input type="number" min="1" name="price" value="<?php echo $price?>" onchange="$('#preview-price').text('£' + this.value)" required>
+        <input type="number" min="1" name="price" value="<?php echo $price?>" onchange="setText(['#preview-price', '#full-price'], this.value)// $('#preview-price').text('£' + this.value)" required>
     </label><br>
 
     <label>Image (max 500kb): 
-        <input type="file" name="image" accept="image/jpeg" onchange="previewBackground(this, '#preview-img')" <?php if($isNew) echo "required";?>><!-- See scripts.js -->
+        <input type="file" name="image" accept="image/jpeg" onchange="previewBackground(this, '#preview-img', '#full-img')" <?php if($isNew) echo "required";?>><!-- See scripts.js -->
     </label><br>
 
     <label>Alt text:
-        <textarea name="altText" placeholder="Alt text" required><?php echo $altText?></textarea>
-    </label>
-
-    <!-- Preview -->
-    
-    <div class="holidayBox" id="preview-img" style='background-image: <?php echo $preview; ?>'>
-        <p class="title">
-            <span id="preview-title"><?php echo $holTitle; ?></span>
-            <span class="country" id="preview-location"><?php echo "$location, $country"?></span>
-        </p>
-        <p id="preview-duration"><?php echo $duration?> nights</p>
-        <p id="preview-price">£<?php echo $price?></p>
-    </div>
-    <!-- End preview -->
+        <textarea name="altText" placeholder="Alt text" onchange="$('#full-img').attr('alt', this.value)" required><?php echo $altText?></textarea>
+    </label><br>
 
     <?php if (!$isNew) echo "<input type='hidden' name='id' value='$holID'>" /* Send ID of existing holiday */?>
 
@@ -163,6 +161,30 @@
         }
     ?>
 </form>
+
+    <!-- Preview -->
+    
+    <div class="holidayBox" id="preview-img" style='background-image: <?php echo $preview; ?>'>
+        <p class="title">
+            <span id="preview-title"><?php echo $holTitle; ?></span>
+            <span class="country" id="preview-location"><?php echo "$location, $country"?></span>
+        </p>
+        <p id="preview-duration"><?php echo $duration?> nights</p>
+        <p id="preview-price">£<?php echo $price?></p>
+    </div>
+
+    <section class="holidayDetails">
+        <div class='header'><h2 class='header' id="full-title"><?php echo $holTitle?></h2></div>
+        <div class='type' id='full-category'><?php echo $catDesc?></div>
+        <div class='description' id="full-desc"><?php echo $description?></div>
+        <div class='location' id="full-location"><?php echo $location?></div>
+        <div class='country' id="full-country"><?php echo $country?></div>
+        <div class='images'><img src='<?php echo $image?>' id="full-img" alt='<?php echo $altText?>'></div>
+        <div class='duration' id='full-duration'><?php echo $duration?> nights</div>
+        <div class='price' id='full-price'>£<?php echo $price?></div>
+        <a class='book' href=''><p>Book now!</p></a>
+    </section>
+    <!-- End preview -->
 <?php
     require "$root/lib/footer.php";
 ?>
