@@ -18,6 +18,15 @@ if (!isset($searchQuery)) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/scripts.js"></script>
+    <?php
+        //$extraScripts = ["/admin/scripts.js"];
+        // https://www.php.net/manual/en/control-structures.foreach.php
+        if (isset($extraScripts)) {
+            foreach($extraScripts as $script) {
+                echo "<script src='$script'></script>\n";
+            }
+        }
+    ?>
 </head>
 <body>
 <div class="navContainer">

@@ -5,6 +5,8 @@
     $root = $_SERVER['DOCUMENT_ROOT'];
     require_once "$root/lib/utility.php";
     require_once "$root/lib/database_conn.php";
+
+    $extraScripts = ["/admin/scripts.js"];
     
     // Cant use boxbegin() and boxend() as they don't allow setting ids
     // require_once "$root/lib/shared.php";

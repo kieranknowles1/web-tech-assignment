@@ -5,6 +5,8 @@
     $root = $_SERVER['DOCUMENT_ROOT'];
     require_once "$root/lib/utility.php";
     require_once "$root/lib/database_conn.php";
+
+    $extraScripts = ["/admin/scripts.js"];
     
     // Cant use boxbegin() and boxend() as they don't allow setting ids
     // require_once "$root/lib/shared.php";
@@ -131,7 +133,7 @@
     </label><br>
 
     <label>Duration: 
-        <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], '£' + this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
+        <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
     </label><br>
 
     <label>Description: 
