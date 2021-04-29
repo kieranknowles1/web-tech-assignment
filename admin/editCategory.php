@@ -37,8 +37,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows == 0) {
-            echo "<p>Invalid category $catID</p>";
-            exit(1);
+            utility::cleanExit("Invalid category $catID");
         }
 
         $row = $queryResult->fetch_object();

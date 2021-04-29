@@ -26,8 +26,7 @@
         LIMIT 1";
         $queryResult = utility::query($sql);
         if ($queryResult->num_rows == 0) {
-            echo "<p>Invalid category id $catID</p>";
-            exit(1);
+            utility::cleanExit("Invalid category id $catID");
         }
 
         // Are we deleting?
@@ -69,8 +68,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
-            echo "<p>There is already a category named $desc</p>";
-            exit(1);
+            utility::cleanExit("There is already a category named $desc");
         }
         echo "<p>Adding to database</p>";
 
@@ -112,8 +110,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
-            echo "<p>Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays</p>";
-            exit(1);
+            utility::query("Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays");
         }
         echo "<p>Deleting category $id</p>";
 

@@ -17,27 +17,23 @@ function checkForImage($required) {
             echo "File is an image.";
         }
         else {
-            echo "<p>File is not an image</p>";
-            exit(1);
+            utility::cleanExit("File is not an image");
         }
 
         $mimeType = $check["mime"];
         if ($mimeType != "image/jpeg") {
-            echo "<p>Expected image/jpeg but got $mimeType";
-            exit(1);
+            utility::cleanExit("Expected image/jpeg but got $mimeType");
         }
 
         if ($_FILES["image"]["size"] > 500000) {
-            echo "<p>Image is too large</p>";
-            exit(1);
+            utility::cleanExit("Image is too large");
         }
 
         return $tmpName;
     }
     else {
         if ($required) {
-            echo "<p>Expected an image</p>";
-            exit(1);
+            utility::cleanExit("Expected an image");
         }
         else return null;
     }

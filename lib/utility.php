@@ -15,19 +15,24 @@ class utility {
     static function tryGet($key, $required = false) {
         $value = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
         if ($required && $value == null) {
-            echo "<p>$key is required</p>";
-            exit(1);
+            utility::cleanExit("$key is required");
         }
         else {
             return $value;
         }
     }
 
-    // Exits with an error message if the query failed
-    /*static function checkQuery($conn, $result) {
-        echo "Page using old checkQuery";
+    // Exits while including a footer and a link back
+    static function cleanExit($message) {
+        require_once "header.php"; // Include the header if it hasn't been included yet
+        echo "<p>$message</p>";
+
+        // https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link
+        echo "<a href='#' onclick='history.go(-1)'>Back</a>"; // This method keeps form contents
+        
+        require "footer.php";
         exit(1);
-    }*/
+    }
 
     // Runs then validates a query, returns the result
     static function query($sql) {

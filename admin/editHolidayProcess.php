@@ -59,8 +59,7 @@
         LIMIT 1";
         $queryResult = utility::query($sql);
         if ($queryResult->num_rows == 0) {
-            echo "<p>Invalid category id $holID</p>";
-            exit(1);
+            utility::cleanExit("Invalid category id $holID");
         }
 
         // Are we deleting?
@@ -106,8 +105,7 @@
                 WHERE lower(holidayTitle) = lower('$details->title')";
         $queryResult = utility::query($sql);
         if ($queryResult->num_rows != 0) {
-            echo "<p>There is already a holiday named $details->title</p>";
-            exit(1);
+            utility::cleanExit("There is already a holiday named $details->title");
         }
 
         echo "<p>Adding to database</p>";
