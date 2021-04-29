@@ -65,12 +65,6 @@
         <input type="file" name="image" accept="image/jpeg" onchange="previewBackground(this, '#preview-img')" <?php if($isNew) echo "required";?>><!-- See scripts.js -->
     </label><br>
 
-
-    <div class='holidayBox' id="preview-img" style='background-image: <?php echo $preview; ?>'>
-        <p class='title' id="preview-title"><span><?php echo $catDesc; ?></span>
-
-    </div>
-
     <?php if (!$isNew) echo "<input type='hidden' name='id' value='$catID'>" /* Send ID of existing category */?>
 
     <!-- https://stackoverflow.com/questions/547821/two-submit-buttons-in-one-form -->
@@ -86,6 +80,11 @@
         }
     ?>
 </form>
+
+<div class='holidayBox' id="preview-img" style='background-image: <?php echo $preview; ?>'>
+        <p class='title' id="preview-title"><span><?php echo $catDesc; ?></span>
+</div>
+
 <?php
     require "$root/lib/footer.php";
 ?>
