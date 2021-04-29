@@ -57,7 +57,7 @@
         $locationQuery = utility::query($locationSql);
 
         while ($row = $locationQuery->fetch_object()) {
-            echo "\t<option value='editLocation.php?id=$row->catID'>$row->locationName, $row->country</option>\n";
+            echo "\t<option value='editLocation.php?id=$row->locationID'>$row->locationName, $row->country</option>\n";
         }
     ?>
 </select>
