@@ -62,6 +62,8 @@
         <input type="text" name="country" value="<?php echo $country?>" required>
     </label><br>
 
+    <?php if (!$isNew) echo "<input type='hidden' name='id' value='$locID'>"?>
+
     <input type="submit" name="action" value="Submit">
     <?php
         if (!$isNew) {
