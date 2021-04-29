@@ -4,10 +4,10 @@ $root = $_SERVER['DOCUMENT_ROOT'];
 require_once "$root/lib/utility.php";
 utility::noDirectAccess();
 
-function checkForImage($required) {
+function checkForImage($name, $required) {
 // Validate image
 // https://www.w3schools.com/php/php_file_upload.asp
-    $tmpName = $_FILES["image"]["tmp_name"];
+    $tmpName = $_FILES[$name]["tmp_name"];
     if ($tmpName != null) {
         echo "<p>$tmpName</p>";
 

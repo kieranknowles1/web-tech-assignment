@@ -57,7 +57,7 @@
         echo "<p>ID: $catID</p>";
 
         // Check that an image was uploaded
-        $tmpName = checkForImage(true);
+        $tmpName = checkForImage("image", true);
 
         echo "<p>Description: $desc</p>";
 
@@ -94,7 +94,7 @@
         $queryResult = utility::query($sql);
 
         // Upload image if provided
-        $tmpName = checkForImage(false);
+        $tmpName = checkForImage("image", false);
         if ($tmpName != null) {
             $imgFile = "$root/images/category/$id.jpg";
             uploadImage($tmpName, $imgFile);

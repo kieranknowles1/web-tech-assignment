@@ -88,7 +88,7 @@
         //$catID = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
         //echo "<p>ID: $catID</p>";
 
-        $tmpName = checkForImage(true);
+        $tmpName = checkForImage("image", true);
         /*
         public $title;
         public $description;
@@ -135,6 +135,8 @@
     }
 
     function updateHoliday($id, $details) {
+        global $root;
+
         printDetails($details);
 
         echo "<p>Updating existing holiday $id</p>";
