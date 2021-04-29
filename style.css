@@ -147,6 +147,19 @@ nav a {
     grid-area: book;
 }
 
+.adminSelect {
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.adminTable, .adminTable th, .adminTable tr td {
+    border: 1px solid black;
+    /* https://www.w3schools.com/cssref/pr_border-collapse.asp */
+    border-collapse: collapse;
+    padding: 2px;
+}
+
 /* Media Queries */
 @media screen and (orientation: landscape) {
     /* No ham menu */
