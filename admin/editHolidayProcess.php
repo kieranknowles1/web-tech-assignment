@@ -152,6 +152,13 @@
                 WHERE holidayID = $id
                 LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
+
+        // Upload image if provided
+        $tmpName = checkForImage("image", false);
+        if ($tmpName != null) {
+            $imgFile = "$root/images/holiday/$id.jpg";
+            uploadImage($tmpName, $imgFile);
+        }
     }
 
     function deleteHoliday($id) {
