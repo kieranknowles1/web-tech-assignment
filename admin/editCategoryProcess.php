@@ -13,14 +13,12 @@
     $catID = $conn->real_escape_string(utility::tryGet("id"));
 
     if ($catID == null) {
-        $title = "New Category Submit";
+        $title = "New Category";
         require "$root/lib/header.php";
 
         newCategory($desc);
     }
     else {
-        $title = "Update category submit";
-
         // Check that ID is valud
         $sql = "SELECT null
         FROM LCG_category
@@ -39,7 +37,7 @@
         if ($deleting) {
             $title = "Delete Category";
             require "$root/lib/header.php";
-            deleteCategory($catID);
+            deleteCategory($catID, $desc);
         }
         else {
             $title = "Edit Category";
@@ -105,7 +103,7 @@
         }
     }
 
-    function deleteCategory($id) {
+    function deleteCategory($id, $desc) {
         global $root;
 
         // Check that the category is unused
