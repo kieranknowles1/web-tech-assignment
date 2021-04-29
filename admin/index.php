@@ -9,7 +9,7 @@
 ?>
 <table class="adminTable">
     <tr>
-        <td><label for="editHoliday">Edit Holiday: </label></td>
+        <td><label for="editHoliday">Holiday: </label></td>
         <td><select name="editHoliday" id="editHoliday" class="adminSelect" onchange="location = this.value;">
             <option selected style="display:none">Select a Holiday</option>
             <?php
@@ -29,7 +29,7 @@
     </tr>
 
     <tr>
-        <td><label for="editCategory">Edit Category: </label></td>
+        <td><label for="editCategory">Category: </label></td>
         <td><select name="editCategory" id="editCategory" class="adminSelect" onchange="location = this.value;">
             <option selected style="display:none">Select a Category</option>
             <?php
@@ -48,7 +48,7 @@
     </tr>
 
     <tr>
-        <td><label for="editLocation">Edit Location: </label></td>
+        <td><label for="editLocation">Location: </label></td>
         <td><select name="editLocation" id="editLocation" class="adminSelect" onchange="location = this.value;">
             <option selected style="display:none">Select a Location</option>
             <?php
