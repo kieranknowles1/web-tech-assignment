@@ -1,9 +1,9 @@
 <?php
     const ERROR_MESSAGE = "<p>No search query</p>";
 
-    require "utility.php";
-    require "database_conn.php";
-    require "shared.php";
+    require "lib/utility.php";
+    require "lib/database_conn.php";
+    require "lib/shared.php";
 
     $searchQuery = utility::tryGet("q");
     if ($searchQuery == null) {
@@ -13,7 +13,7 @@
 
     $title = "$searchQuery - Leading Choice Getaways";
 
-    require "header.php";
+    require "lib/header.php";
     
 
     echo "  <section class='holidays'>
@@ -22,11 +22,12 @@
 
     // https://www.w3schools.com/sql/sql_like.asp
     $sql = "SELECT LCG_holidays.holidayID, LCG_holidays.holidayTitle, LCG_holidays.holidayDuration, LCG_holidays.holidayPrice,
-                   LCG_location.country
+                   LCG_location.locationName, LCG_location.country, LCG_holidays.holidayDescription
             FROM LCG_holidays
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
             WHERE LCG_holidays.holidayTitle LIKE '%$searchQuery%'
-            OR    LCG_location.country LIKE '%$searchQuery%'";
+            OR    LCG_location.country LIKE '%$searchQuery%'
+            OR    LCG_location.locationName LIKE '%$searchQuery%'";
 
     $queryResult = utility::query($sql);
     if ($queryResult->num_rows != 0) {
@@ -40,5 +41,5 @@
     </section>
 
 <?php
-    require "footer.php";
+    require "lib/footer.php";
 ?>
