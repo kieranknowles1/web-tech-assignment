@@ -87,6 +87,8 @@ nav a {
 
     background-size: 100%;
     background-repeat: no-repeat;
+
+    position: relative;
 }
 
 .holidayBox .title {
@@ -96,6 +98,15 @@ nav a {
 
 .holidayBox .country {
     float: right;
+}
+
+.holidayBox .description {
+    background-color: rgb(255, 255, 255, 0.7);
+    padding: 0.5em;
+
+    /* https://flaviocopes.com/css-how-to-put-item-bottom-container/ */
+    position: absolute;
+    bottom: 0;
 }
 
 /* Holiday details */

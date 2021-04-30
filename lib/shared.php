@@ -53,6 +53,8 @@ function holidayList($queryResult) {
         // Casting to int removes the trailing '.00'
         $price = (int)$row->holidayPrice;
         echo "<p>£$price</p>";
+
+        echo "<p class='description'>$row->holidayDescription</p>";
     
         boxEnd();
     }
