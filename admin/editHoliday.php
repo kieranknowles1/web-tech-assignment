@@ -84,12 +84,14 @@
     // Locations
     $sql = "SELECT locationID, country,
                    locationName
-            FROM LCG_location";
+            FROM LCG_location
+            ORDER BY locationName, country";
     $locQuery = utility::query($sql);
 
     // Categories
     $sql = "SELECT catID, catDesc
-            FROM LCG_category";
+            FROM LCG_category
+            ORDER BY catDesc";
     $catQuery = utility::query($sql);
 
     require "$root/lib/header.php";
