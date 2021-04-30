@@ -15,7 +15,7 @@ class utility {
     static function tryGet($key, $required = false) {
         $value = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
         if ($required && $value == null) {
-            utility::cleanExit("$key is required");
+            utility::cleanExit("$key is required", 400);
         }
         else {
             return $value;
@@ -43,7 +43,7 @@ class utility {
 
         if ($result === false) {
             $error = $conn->error;
-            utility::cleanExit("Query failed: $error.");
+            utility::cleanExit("Query failed: $error.", 500);
         }
         else {
             return $result;
