@@ -56,7 +56,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows == 0) {
-            utility::cleanExit("Invalid category $holID");
+            utility::cleanExit("Invalid holiday $holID", 400);
         }
 
         $row = $queryResult->fetch_object();

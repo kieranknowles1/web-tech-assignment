@@ -7,7 +7,7 @@
 
     $id = utility::tryGet("id");
     if ($id == null) {
-        utility::cleanExit(ERROR_MESSAGE);
+        utility::cleanExit(ERROR_MESSAGE, 400);
     }
     $id = $conn->real_escape_string($id);
 
@@ -25,7 +25,7 @@
     $queryResult = utility::query($sql);
 
     if($queryResult->num_rows == 0) {
-        utility::cleanExit(ERROR_MESSAGE);
+        utility::cleanExit(ERROR_MESSAGE, 400);
     }
 
     $row = $queryResult->fetch_object();

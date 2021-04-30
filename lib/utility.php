@@ -23,7 +23,9 @@ class utility {
     }
 
     // Exits while including a footer and a link back
-    static function cleanExit($message) {
+    static function cleanExit($message, $code) {
+        http_response_code($code);
+        $title = "Error";
         require_once "header.php"; // Include the header if it hasn't been included yet
         echo "<p>$message</p>";
 

@@ -7,7 +7,7 @@
 
     $searchQuery = utility::tryGet("q");
     if ($searchQuery == null) {
-        utility::cleanExit(ERROR_MESSAGE);
+        utility::cleanExit(ERROR_MESSAGE, 400);
     }
     $searchQuery = $conn->real_escape_string($searchQuery);
 

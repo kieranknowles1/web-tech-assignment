@@ -7,8 +7,7 @@
 
     $catID = utility::tryGet("id");
     if ($catID == null) {
-        http_response_code(400);
-        utility::cleanExit(ERROR_MESSAGE);
+        utility::cleanExit(ERROR_MESSAGE, 400);
     }
     $catID = $conn->real_escape_string($catID);
 
@@ -21,8 +20,7 @@
     $queryResult = utility::query($sql);
 
     if($queryResult->num_rows == 0) {
-        http_response_code(400);
-        utility::cleanExit(ERROR_MESSAGE);
+        utility::cleanExit(ERROR_MESSAGE, 400);
     }
 
     $row = $queryResult->fetch_object();

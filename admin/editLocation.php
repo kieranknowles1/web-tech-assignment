@@ -34,7 +34,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows == 0) {
-            utility::cleanExit("Invalid category $locID");
+            utility::cleanExit("Invalid location $locID", 400);
         }
 
         $row = $queryResult->fetch_object();

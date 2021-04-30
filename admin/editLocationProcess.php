@@ -25,7 +25,7 @@
                 LIMIT 1";
         $queryResult = utility::query($sql);
         if ($queryResult->num_rows == 0) {
-            utility::cleanExit("Invalid location id $locID");
+            utility::cleanExit("Invalid location id $locID", 400);
         }
 
         // Are we deleting?
@@ -62,7 +62,7 @@
         $dupeResult = utility::query($dupeSql);
 
         if ($dupeResult->num_rows != 0) {
-            utility::safeExit("There is already a location named $name, $country");
+            utility::cleanExit("There is already a location named $name, $country", 400);
         }
 
         echo "<p>Adding to database</p>";
