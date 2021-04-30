@@ -109,6 +109,21 @@
         }
 
         // Validate category and location
+        $categorySql = "SELECT null
+                        FROM LCG_category
+                        WHERE catID = '$details->catID'";
+        $categoryQuery = utility::query($categorySql);
+        if ($categoryQuery->num_rows == 0) {
+            utility::cleanExit("Invalid category ID '$details->catID'", 400);
+        }
+
+        $locationSql = "SELECT null
+                        FROM LCG_location
+                        WHERE locationID = '$details->locID'";
+        $locationQuery = utility::query($locationSql);
+        if ($locationQuery->num_rows == 0) {
+            utility::cleanExit("Invalid location ID '$details->locID'", 400);
+        }
 
         echo "<p>Adding to database</p>";
 
