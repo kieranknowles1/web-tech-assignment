@@ -41,8 +41,7 @@ class utility {
 
         if ($result === false) {
             $error = $conn->error;
-            echo "<p>Query failed: $error.</p>";
-            exit;
+            utility::cleanExit("Query failed: $error.");
         }
         else {
             return $result;

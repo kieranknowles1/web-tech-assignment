@@ -19,8 +19,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_errno) {
     $error = $conn->connect_error;
-    echo "<p>Connection to database failed</p>";
-    echo "<p>The error was: $error.</p>";
-    exit;
+    utility::cleanExit("Connection to database failed<br>
+                        The error was: $error.");
 }
 ?>

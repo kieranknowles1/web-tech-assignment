@@ -1,5 +1,5 @@
 <?php
-    const ERROR_MESSAGE = "<p>Invalid category</p>";
+    const ERROR_MESSAGE = "Invalid category";
 
     require_once "lib/utility.php";
     require_once "lib/database_conn.php";
@@ -8,8 +8,7 @@
     $catID = utility::tryGet("id");
     if ($catID == null) {
         http_response_code(400);
-        echo ERROR_MESSAGE;
-        exit;
+        utility::cleanExit(ERROR_MESSAGE);
     }
     $catID = $conn->real_escape_string($catID);
 
@@ -23,8 +22,7 @@
 
     if($queryResult->num_rows == 0) {
         http_response_code(400);
-        echo ERROR_MESSAGE;
-        exit;
+        utility::cleanExit(ERROR_MESSAGE);
     }
 
     $row = $queryResult->fetch_object();
