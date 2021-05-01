@@ -17,7 +17,8 @@
 <?php
     // Categories
     $sql = "SELECT catID, catDesc
-            FROM LCG_category";
+            FROM LCG_category
+            ORDER BY catDesc";
     
     $queryResult = utility::query($sql);
 
@@ -39,7 +40,8 @@
     $sql = "SELECT LCG_holidays.holidayID, LCG_holidays.holidayTitle, LCG_holidays.holidayDuration, LCG_holidays.holidayPrice,
                    LCG_location.country, LCG_location.locationName, LCG_holidays.holidayDescription
             FROM LCG_holidays
-            INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID";
+            INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
+            ORDER BY LCG_holidays.holidayTitle";
 
     $queryResult = utility::query($sql);
 

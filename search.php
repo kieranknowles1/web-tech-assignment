@@ -27,7 +27,8 @@
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
             WHERE LCG_holidays.holidayTitle LIKE '%$searchQuery%'
             OR    LCG_location.country LIKE '%$searchQuery%'
-            OR    LCG_location.locationName LIKE '%$searchQuery%'";
+            OR    LCG_location.locationName LIKE '%$searchQuery%'
+            ORDER BY LCG_holidays.holidayTitle";
 
     $queryResult = utility::query($sql);
     if ($queryResult->num_rows != 0) {

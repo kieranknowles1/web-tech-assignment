@@ -37,7 +37,8 @@
                    LCG_location.country, LCG_location.locationName, LCG_holidays.holidayDescription
             FROM LCG_holidays
             INNER JOIN LCG_location ON LCG_holidays.locationID=LCG_location.locationID
-            WHERE LCG_holidays.catID='$catID'";
+            WHERE LCG_holidays.catID='$catID'
+            ORDER BY LCG_holidays.holidayTitle";
 
     $queryResult = utility::query($sql);
 
