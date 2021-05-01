@@ -4,11 +4,12 @@ require_once "$root/lib/utility.php";
 utility::noDirectAccess();
 
 // Connection can be accessed from $conn
+// Rename this file to database_conn.php and add the password
 
 // MySQLi parameters
 $servername = "localhost";
 $username = "unn_w20013000";
-$password = "********"; // oops, this is why you use password managers
+$password = "********";
 $dbname = "unn_w20013000";
 
 // Create connection
