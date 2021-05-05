@@ -8,7 +8,9 @@
 
     require_once "imageLib.php";
 
-    $desc = $conn->real_escape_string(utility::tryGet("desc", true));
+    $desc = utility::tryGet("desc", true);
+    $desc_html = htmlspecialchars($desc);
+    $desc_sql = $conn->real_escape_string($desc);
 
     $catID = $conn->real_escape_string(utility::tryGet("id"));
 
@@ -48,7 +50,10 @@
     require "$root/lib/footer.php";
 
     function newCategory($desc) {
-        global $root;
+        global $root, $conn;
+
+        $desc_html = htmlspecialchars($desc);
+        $desc_sql = $conn->real_escape_string($desc);
 
         // Generate ID
         // Database uses string for ID so this is necessary
@@ -59,16 +64,16 @@
         // Check that an image was uploaded
         $tmpName = checkForImage("image", true);
 
-        echo "<p>Description: $desc</p>";
+        echo "<p>Description: $desc_html</p>";
 
         // Check for duplicate category
         $sql = "SELECT null
                 FROM LCG_category
-                WHERE lower(catDesc) = lower('$desc')";
+                WHERE lower(catDesc) = lower('$desc_sql')";
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
-            utility::cleanExit("There is already a category named $desc", 400);
+            utility::cleanExit("There is already a category named $desc_html", 400);
         }
         echo "<p>Adding to database</p>";
 
@@ -78,17 +83,20 @@
 
         // Add to database
         $sql = "INSERT INTO LCG_category (catID, catDesc)
-                VALUES ('$catID', '$desc');";
+                VALUES ('$catID', '$desc_sql');";
         $queryResult = utility::query($sql);
     }
 
     function updateCategory($id, $desc) {
-        global $root;
+        global $root, $conn;
+
+        $desc_html = htmlspecialchars($desc);
+        $desc_sql = $conn->real_escape_string($desc);
 
         // Update existing
         echo "<p>Updating existing category id=$id</p>";
         $sql = "UPDATE LCG_category
-                SET catDesc = '$desc'
+                SET catDesc = '$desc_sql'
                 WHERE catID = '$id'
                 LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
@@ -102,7 +110,10 @@
     }
 
     function deleteCategory($id, $desc) {
-        global $root;
+        global $root, $conn;
+
+        $desc_html = htmlspecialchars($desc);
+        $desc_sql = $conn->real_escape_string($desc);
 
         // Check that the category is unused
         $sql = "SELECT null FROM LCG_holidays
@@ -110,7 +121,7 @@
         $queryResult = utility::query($sql);
 
         if ($queryResult->num_rows != 0) {
-            utility::query("Could not delete category '$desc' as it is in use by $queryResult->num_rows holidays");
+            utility::query("Could not delete category '$desc_html' as it is in use by $queryResult->num_rows holidays");
         }
         echo "<p>Deleting category $id</p>";
 

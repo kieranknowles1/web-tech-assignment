@@ -6,8 +6,9 @@
     require_once "$root/lib/database_conn.php";
     require_once "$root/lib/utility.php";
 
-    $name = $conn->real_escape_string(utility::tryGet("name", true));
-    $country = $conn->real_escape_string(utility::tryGet("country", true));
+    $name = utility::tryGet("name", true);
+
+    $country = utility::tryGet("country", true);
 
     $locID = $conn->real_escape_string(utility::tryGet("id"));
 
@@ -47,22 +48,29 @@
     require "$root/lib/footer.php";
 
     function newLocation($name, $country) {
+        global $conn;
+        $name_sql = $conn->real_escape_string($name);
+        $name_html = htmlspecialchars($name);
+
+        $country_html = htmlspecialchars($country);
+        $country_sql = $conn->real_escape_string($country);
+
         // ID should be an auto increment int
         $locID = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
         echo "<p>ID: $locID</p>";
 
-        echo "<p>Name: $name</p>";
-        echo "<p>Country: $country</p>";
+        echo "<p>Name: $name_html</p>";
+        echo "<p>Country: $country_html</p>";
 
         // Check for duplicate
         $dupeSql = "SELECT null
                     FROM LCG_location
-                    WHERE lower(locationName) = lower('$name') AND
-                          lower(country) = lower('$country');";
+                    WHERE lower(locationName) = lower('$name_sql') AND
+                          lower(country) = lower('$country_sql');";
         $dupeResult = utility::query($dupeSql);
 
         if ($dupeResult->num_rows != 0) {
-            utility::cleanExit("There is already a location named $name, $country", 400);
+            utility::cleanExit("There is already a location named $name_html, $country_html", 400);
         }
 
         echo "<p>Adding to database</p>";
@@ -70,34 +78,48 @@
         $insertSql = "INSERT INTO LCG_location
                           (locationID, locationName, country)
                       VALUES
-                          ('$locID', '$name', '$country');";
+                          ('$locID', '$name_sql', '$country_sql');";
         $insertResult = utility::query($insertSql);
     }
 
     function updateLocation($id, $name, $country) {
+        global $conn;
+        $name_sql = $conn->real_escape_string($name);
+        $name_html = htmlspecialchars($name);
+
+        $country_html = htmlspecialchars($country);
+        $country_sql = $conn->real_escape_string($country);
+
         echo "<p>Updating existing location id=$id</p>";
         
-        echo "<p>Name: $name</p>";
-        echo "<p>Country: $country</p>";
+        echo "<p>Name: $name_html</p>";
+        echo "<p>Country: $country_html</p>";
 
         $updateSql = "UPDATE LCG_location
-                      SET locationName = '$name',
-                          country = '$country'
+                      SET locationName = '$name_sql',
+                          country = '$country_sql'
                       WHERE locationID = '$id'
                       LIMIT 1;";
         $updateResult = utility::query($updateSql);
     }
 
     function deleteLocation($id, $name, $country) {
+        global $conn;
+        $name_sql = $conn->real_escape_string($name);
+        $name_html = htmlspecialchars($name);
+
+        $country_html = htmlspecialchars($country);
+        $country_sql = $conn->real_escape_string($country);
+
         $unusedSql = "SELECT null FROM LCG_holidays
                       WHERE locationID = '$id';";
         $unusedResult = utility::query($unusedSql);
 
         if ($unusedResult->num_rows != 0) {
-            echo "<p>Could not delete location '$name, $country' as it is in use by $unusedResult->num_rows holidays</p>";
+            echo "<p>Could not delete location '$name_html, $country_html' as it is in use by $unusedResult->num_rows holidays</p>";
         }
 
-        echo "<p>Delecting location '$name, $country'</p>";
+        echo "<p>Delecting location '$name_html, $country_html'</p>";
 
         $deleteSql = "DELETE FROM LCG_location
                       WHERE locationID = '$id'

@@ -1,23 +1,37 @@
 <?php
 
     class HolidayDetails {
-        public $title;
+        /*public $title;
         public $description;
         public $duration;
         public $locID;
         public $catID;
         public $price;
-        public $altText;
+        public $altText;*/
+        public $title_sql;
+        public $description_sql;
+        public $duration_sql;
+        public $locID_sql;
+        public $catID_sql;
+        public $price_sql;
+        public $altText_sql;
+        public $title_html;
+        public $description_html;
+        public $duration_html;
+        public $locID_html;
+        public $catID_html;
+        public $price_html;
+        public $altText_html;
     }
 
     function printDetails($details) {
-        echo "<p>Title: $details->title</p>";
-        echo "<p>Description: $details->description</p>";
-        echo "<p>Duration: $details->duration</p>";
-        echo "<p>locID: $details->locID</p>";
-        echo "<p>catID: $details->catID</p>";
-        echo "<p>Price: $details->price</p>";
-        echo "<p>Alt text: $details->altText</p>";
+        echo "<p>Title: $details->title_html</p>\n";
+        echo "<p>Description: $details->description_html</p>\n";
+        echo "<p>Duration: $details->duration_html</p>\n";
+        echo "<p>locID: $details->locID_html</p>\n";
+        echo "<p>catID: $details->catID_html</p>\n";
+        echo "<p>Price: $details->price_html</p>\n";
+        echo "<p>Alt text: $details->altText_html</p>\n";
     }
 
     // https://css-tricks.com/php-include-from-root/
@@ -33,13 +47,29 @@
     
     $details = new HolidayDetails;
 
-    $details->title = $conn->real_escape_string(utility::tryGet("title", true));
-    $details->description = $conn->real_escape_string(utility::tryGet("description", true));
-    $details->duration = $conn->real_escape_string(utility::tryGet("duration", true));
-    $details->locID = $conn->real_escape_string(utility::tryGet("locID", true));
-    $details->catID = $conn->real_escape_string(utility::tryGet("catID", true));
-    $details->price = $conn->real_escape_string(utility::tryGet("price", true));
-    $details->altText = $conn->real_escape_string(utility::tryGet("altText", true));
+    $title = utility::tryGet("title", true);
+    $description = utility::tryGet("description", true);
+    $duration = utility::tryGet("duration", true);
+    $locID = utility::tryGet("locID", true);
+    $catID = utility::tryGet("catID", true);
+    $price = utility::tryGet("price", true);
+    $altText = utility::tryGet("altText", true);
+
+    $details->title_sql = $conn->real_escape_string($title);
+    $details->description_sql = $conn->real_escape_string($description);
+    $details->duration_sql = $conn->real_escape_string($duration);
+    $details->locID_sql = $conn->real_escape_string($locID);
+    $details->catID_sql = $conn->real_escape_string($catID);
+    $details->price_sql = $conn->real_escape_string($price);
+    $details->altText_sql = $conn->real_escape_string($altText);
+
+    $details->title_html = htmlspecialchars($title);
+    $details->description_html = htmlspecialchars($description);
+    $details->duration_html = htmlspecialchars($duration);
+    $details->locID_html = htmlspecialchars($locID);
+    $details->catID_html = htmlspecialchars($catID);
+    $details->price_html = htmlspecialchars($price);
+    $details->altText_html = htmlspecialchars($altText);
 
     $holID = $conn->real_escape_string(utility::tryGet("id"));
 
@@ -102,27 +132,27 @@
         // Check for duplicate
         $sql = "SELECT NULL
                 FROM LCG_holidays
-                WHERE lower(holidayTitle) = lower('$details->title')";
+                WHERE lower(holidayTitle) = lower('$details->title_sql')";
         $queryResult = utility::query($sql);
         if ($queryResult->num_rows != 0) {
-            utility::cleanExit("There is already a holiday named $details->title", 400);
+            utility::cleanExit("There is already a holiday named $details->title_html", 400);
         }
 
         // Validate category and location
         $categorySql = "SELECT null
                         FROM LCG_category
-                        WHERE catID = '$details->catID'";
+                        WHERE catID = '$details->catID_sql'";
         $categoryQuery = utility::query($categorySql);
         if ($categoryQuery->num_rows == 0) {
-            utility::cleanExit("Invalid category ID '$details->catID'", 400);
+            utility::cleanExit("Invalid category ID '$details->catID_html'", 400);
         }
 
         $locationSql = "SELECT null
                         FROM LCG_location
-                        WHERE locationID = '$details->locID'";
+                        WHERE locationID = '$details->locID_sql'";
         $locationQuery = utility::query($locationSql);
         if ($locationQuery->num_rows == 0) {
-            utility::cleanExit("Invalid location ID '$details->locID'", 400);
+            utility::cleanExit("Invalid location ID '$details->locID_html'", 400);
         }
 
         echo "<p>Adding to database</p>";
@@ -136,10 +166,10 @@
                     altText
                 )
                 VALUES (
-                    '$details->title', '$details->description',
-                    '$details->duration', '$details->locID',
-                    '$details->catID', '$details->price',
-                    '$details->altText'
+                    '$details->title_sql', '$details->description_sql',
+                    '$details->duration_sql', '$details->locID_sql',
+                    '$details->catID_sql', '$details->price_sql',
+                    '$details->altText_sql'
                 )";
         utility::query($sql);
         $id = mysqli_insert_id($conn);
@@ -159,13 +189,13 @@
         echo "<p>Updating existing holiday $id</p>";
 
         $sql = "UPDATE LCG_holidays
-                SET holidayTitle = '$details->title',
-                    holidayDescription = '$details->description',
-                    holidayDuration = '$details->duration',
-                    locationID = '$details->locID',
-                    catID = '$details->catID',
-                    holidayPrice = '$details->price',
-                    altText = '$details->altText'
+                SET holidayTitle = '$details->title_sql',
+                    holidayDescription = '$details->description_sql',
+                    holidayDuration = '$details->duration_sql',
+                    locationID = '$details->locID_sql',
+                    catID = '$details->catID_sql',
+                    holidayPrice = '$details->price_sql',
+                    altText = '$details->altText_sql'
                 WHERE holidayID = $id
                 LIMIT 1"; // Safety
         $queryResult = utility::query($sql);
