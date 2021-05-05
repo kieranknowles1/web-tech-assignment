@@ -5,9 +5,13 @@ require_once "utility.php";
 utility::noDirectAccess();
 
 // Set by search.php
-if (!isset($searchQuery)) {
-    $searchQuery = "";
+if (!isset($searchQuery_unescape)) {
+    $searchQuery_unescape = "";
 }
+if (!isset($searchQuery_html)) {
+    $searchQuery_html = htmlspecialchars($searchQuery_unescape);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +40,7 @@ if (!isset($searchQuery)) {
     </header>
     <nav id="nav_menu">
         <form action="search.php" onsubmit="return !isEmpty('query')"> <!-- Silently fail if no input-->
-            <input class="search" name="q" id="query" type="text" placeholder="Search" value="<?php echo $searchQuery ?>"> <!--TODO: Tab index-->
+            <input class="search" name="q" id="query" type="text" placeholder="Search" value="<?php echo $searchQuery_html ?>"> <!--TODO: Tab index-->
         </form>
         <a href="/">Home</a>
         <a href="/admin">Admin</a>

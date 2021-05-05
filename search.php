@@ -5,16 +5,16 @@
     require "lib/database_conn.php";
     require "lib/shared.php";
 
-    $searchQuery = utility::tryGet("q");
-    if ($searchQuery == null) {
+    $searchQuery_unescape = utility::tryGet("q");
+    if ($searchQuery_unescape == null) {
         utility::cleanExit(ERROR_MESSAGE, 400);
     }
-    $searchQuery = $conn->real_escape_string($searchQuery);
+    $searchQuery = $conn->real_escape_string($searchQuery_unescape);
+    $searchQuery_html = htmlspecialchars($searchQuery_unescape);
 
-    $title = "$searchQuery - Leading Choice Getaways";
+    $title = "$searchQuery_html - Leading Choice Getaways";
 
     require "lib/header.php";
-    
 
     echo "  <section class='holidays'>
                 <h2>Search results</h2>
