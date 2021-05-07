@@ -48,6 +48,9 @@ function holidayList($queryResult) {
         $location = htmlspecialchars($row->locationName);
         $country = htmlspecialchars($row->country);
         $duration = htmlspecialchars($row->holidayDuration);
+
+        // holidayPrice uses decimal so query returns a string
+        // Casting to int removes the trailing '.00'
         $price = (int)htmlspecialchars($row->holidayPrice);
         $description = htmlspecialchars($row->holidayDescription);
 
@@ -56,11 +59,11 @@ function holidayList($queryResult) {
 
         echo "<span class='country'>$location, $country</span></p>\n";
         
-        echo "<p>$duration nights</p>";
-    
-        // holidayPrice uses decimal so query returns a string
-        // Casting to int removes the trailing '.00'
-        echo "<p>£$price</p>";
+        // Span used to set background color for width of text
+        echo "<p class='priceDuration'>
+                $duration nights<br>
+                £$price
+              </p>";
 
         echo "<p class='description'>$description</p>";
     
