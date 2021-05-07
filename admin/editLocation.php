@@ -54,11 +54,11 @@
 ?>
 <form method="post" action="editLocationProcess.php">
     <label>Name:
-        <input type="text" name="name" value="<?php echo $locationName?>" required>
+        <input type="text" name="name" value="<?php echo $locationName?>" maxlength="40" required>
     </label><br>
 
     <label>Country:
-        <input type="text" name="country" value="<?php echo $country?>" required>
+        <input type="text" name="country" value="<?php echo $country?>" maxlength="40" required>
     </label><br>
 
     <?php if (!$isNew) echo "<input type='hidden' name='id' value='$locID'>"?>

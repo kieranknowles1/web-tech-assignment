@@ -9,6 +9,10 @@
     require_once "imageLib.php";
 
     $desc = utility::tryGet("desc", true);
+    if (strlen($desc) > 30) {
+        utility::cleanExit("Max length for title is 30 characters", 400);
+    }
+
     $desc_html = htmlspecialchars($desc);
     $desc_sql = $conn->real_escape_string($desc);
 

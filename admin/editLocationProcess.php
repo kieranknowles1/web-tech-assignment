@@ -7,8 +7,14 @@
     require_once "$root/lib/utility.php";
 
     $name = utility::tryGet("name", true);
+    if (strlen($name) > 40) {
+        utility::cleanexit("Max length for name is 40 characters", 400);
+    }
 
     $country = utility::tryGet("country", true);
+    if (strlen($country) > 40) {
+        utility::cleanexit("Max length for country is 40 characters", 400);
+    }
 
     $locID = $conn->real_escape_string(utility::tryGet("id"));
 

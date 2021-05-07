@@ -48,12 +48,31 @@
     $details = new HolidayDetails;
 
     $title = utility::tryGet("title", true);
+    if (strlen($title) > 256) {
+        utility::cleanExit("Max length for title is 256 characters", 400);
+    }
+
     $description = utility::tryGet("description", true);
+    if (strlen($description) > 256) {
+        utility::cleanExit("Max length for description is 256 characters", 400);
+    }
+
     $duration = utility::tryGet("duration", true);
+    if ($duration < 1 || $duration > 99) {
+        utility::cleanExit("Duration must be between 1 and 99 days", 400);
+    }
+
     $locID = utility::tryGet("locID", true);
     $catID = utility::tryGet("catID", true);
     $price = utility::tryGet("price", true);
+    if ($price < 1 || $price > 9999.99) {
+        utility::cleanExit("Price must be between £1 and £9999.99", 400);
+    }
+
     $altText = utility::tryGet("altText", true);
+    if (strlen($altText) > 256) {
+        utility::cleanExit("Max length for alt text is 256 characters", 400);
+    }
 
     $details->title_sql = $conn->real_escape_string($title);
     $details->description_sql = $conn->real_escape_string($description);

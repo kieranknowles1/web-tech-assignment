@@ -98,7 +98,7 @@
 ?>
 <form method="post" action="editHolidayProcess.php" enctype="multipart/form-data">
     <label>Title: 
-        <input type="text" name="title" value="<?php echo $holTitle?>" onchange="setText(['#preview-title', '#full-title'], this.value)  //$('#preview-title').text(this.value)" required>
+        <input type="text" name="title" value="<?php echo $holTitle?>" onchange="setText(['#preview-title', '#full-title'], this.value)" maxlength="256" required>
     </label><br>
 
     <label>Location:
@@ -140,15 +140,15 @@
     </label><br>
 
     <label>Duration: 
-        <input type="number" min="1" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
+        <input type="number" min="1" max="99" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
     </label><br>
 
     <label>Description: 
-        <textarea name="description" placeholder="Description" onchange="setText(['#full-desc'], this.value)" required><?php echo $description?></textarea>
+        <textarea name="description" placeholder="Description" onchange="setText(['#full-desc'], this.value)" maxlength="256" required><?php echo $description?></textarea>
     </label><br>
 
     <label>Price: 
-        <input type="number" min="1" name="price" value="<?php echo $price?>" onchange="setText(['#preview-price', '#full-price'], this.value)// $('#preview-price').text('£' + this.value)" required>
+        <input type="number" min="1" max="9999.99" name="price" value="<?php echo $price?>" onchange="setText(['#preview-price', '#full-price'], this.value)// $('#preview-price').text('£' + this.value)" required>
     </label><br>
 
     <label>Image (max 500kb): 
@@ -156,7 +156,7 @@
     </label><br>
 
     <label>Alt text:
-        <textarea name="altText" placeholder="Alt text" onchange="$('#full-img').attr('alt', this.value)" required><?php echo $altText?></textarea>
+        <textarea name="altText" placeholder="Alt text" onchange="$('#full-img').attr('alt', this.value)" maxlength="256" required><?php echo $altText?></textarea>
     </label><br>
 
     <?php if (!$isNew) echo "<input type='hidden' name='id' value='$holID'>" /* Send ID of existing holiday */?>
