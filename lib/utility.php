@@ -23,6 +23,9 @@ class utility {
     }
 
     // Exits while including a footer and a link back
+    // 400 - Bad request
+    // 403 - Forbidden
+    // 500 - Internal server error
     static function cleanExit($message, $code) {
         http_response_code($code);
         $title = "Error";
