@@ -2,6 +2,10 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+
+    /* https://stackoverflow.com/questions/18229387/wrap-a-long-single-word-using-css */
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 /* https://tobiasahlin.com/blog/flexbox-break-to-new-row/ */
