@@ -29,7 +29,7 @@
     }
 
     $row = $queryResult->fetch_object();
-    $holidayTitle = $row->holidayTitle;
+    $holidayTitle = htmlspecialchars($row->holidayTitle);
     $title = "$holidayTitle - Leading Choice Getaways";
 
     require_once "lib/header.php";
@@ -40,20 +40,29 @@
     $category = strtolower($row->catDesc);
     // Automatically use 'an' when necessary
     $aOrAn = strstr("aeiou", $category[0]) ? 'An' : 'A';
+    $category = htmlspecialchars($category);
 
     $image = "images/holiday/$id";
     if (!file_exists("$image.jpg")) {
         $image = "images/default_background";
     }
 
-    echo "\t<div class='header'><h2 class='header'>$row->holidayTitle</h2></div>\n";
+    echo "\t<div class='header'><h2 class='header'>$holidayTitle</h2></div>\n";
     echo "\t<div class='type'>$aOrAn $category holiday</div>\n";
-    echo "\t<div class='description'>$row->holidayDescription</div>\n";
-    echo "\t<div class='location'>$row->locationName</div>\n";
-    echo "\t<div class='country'>$row->country</div>\n";
-    echo "\t<div class='images'><img src='$image.jpg' alt='$row->altText'></div>\n";
-    echo "\t<div class='duration'>$row->holidayDuration nights</div>\n";
-    echo "\t<div class='price'>£$row->holidayPrice</div>\n";
+    $desc = htmlspecialchars($row->holidayDescription);
+    echo "\t<div class='description'>$desc</div>\n";
+    $locName = htmlspecialchars($row->locationName);
+    echo "\t<div class='location'>$locName</div>\n";
+    $country = htmlspecialchars($row->country);
+    echo "\t<div class='country'>$country</div>\n";
+    // https://www.php.net/manual/en/function.htmlspecialchars.php
+    // ENT_QUOTES converts both single and double quotes
+    $altText = htmlspecialchars($row->altText, $flags = ENT_QUOTES);
+    echo "\t<div class='images'><img src='$image.jpg' alt='$altText'></div>\n";
+    $duration = htmlspecialchars($row->holidayDuration);
+    echo "\t<div class='duration'>$duration nights</div>\n";
+    $price = htmlspecialchars($row->holidayPrice);
+    echo "\t<div class='price'>£$price</div>\n";
     echo "\t<a class='book' href=''><p>Book now!</p></a>\n"
 ?>
 </section>

@@ -39,8 +39,8 @@
 
         $row = $queryResult->fetch_object();
         
-        $locationName = $row->locationName;
-        $country = $row->country;
+        $locationName = htmlspecialchars($row->locationName);
+        $country = htmlspecialchars($row->country);
 
         // Check for usage
         $sql = "SELECT null

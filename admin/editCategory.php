@@ -41,7 +41,7 @@
         }
 
         $row = $queryResult->fetch_object();
-        $catDesc = $row->catDesc;
+        $catDesc = htmlspecialchars($row->catDesc);
 
         $preview = "url(\"/images/category/$catID.jpg\")";
 

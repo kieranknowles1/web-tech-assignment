@@ -60,15 +60,15 @@
         }
 
         $row = $queryResult->fetch_object();
-        $holTitle = $row->holidayTitle;
-        $description = $row->holidayDescription;
-        $duration = $row->holidayDuration;
-        $price = (int)$row->holidayPrice;
-        $altText = $row->altText;
+        $holTitle = htmlspecialchars($row->holidayTitle);
+        $description = htmlspecialchars($row->holidayDescription);
+        $duration = htmlspecialchars($row->holidayDuration);
+        $price = (int)htmlspecialchars($row->holidayPrice);
+        $altText = htmlspecialchars($row->altText, $flags = ENT_QUOTES);
 
         $location = $row->locationName;
 
-        $category = strtolower($row->catDesc);
+        $category = htmlspecialchars(strtolower($row->catDesc));
         $aOrAn = strstr("aeiou", $category[0]) ? 'An' : 'A';
         $catDesc = "$aOrAn $category holiday";
 
@@ -111,7 +111,10 @@
                     $autoSelect = "";
                     if ($locID == $curLocID) $autoSelect = "selected";
 
-                    echo "\t<option $autoSelect value='$curLocID' id='loc$curLocID'>$row->locationName, $row->country</option>\n";
+                    $location = htmlspecialchars($row->locationName);
+                    $country = htmlspecialchars($row->country);
+
+                    echo "\t<option $autoSelect value='$curLocID' id='loc$curLocID'>$location, $country</option>\n";
                 }
             ?>
         </select>
@@ -127,7 +130,10 @@
                     $autoSelect = "";
                     if ($catID == $curCatID) $autoSelect = "selected";
 
-                    echo "\t<option $autoSelect value='$curCatID' id='cat$curCatID'>$row->catDesc</option>\n";
+                    $id = htmlspecialchars($row->catID);
+                    $desc = htmlspecialchars($row->catDesc);
+
+                    echo "\t<option $autoSelect value='$curCatID' id='cat$id'>$desc</option>\n";
                 }
             ?>
         </select>

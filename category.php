@@ -24,7 +24,7 @@
     }
 
     $row = $queryResult->fetch_object();
-    $catDesc = $row->catDesc;
+    $catDesc = htmlspecialchars($row->catDesc);
     $title = "$catDesc holidays - Leading Choice Getaways";
 
     require_once "lib/header.php";

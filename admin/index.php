@@ -21,7 +21,9 @@
 
                 // https://stackoverflow.com/questions/2000656/using-href-links-inside-option-tag
                 while ($row = $holidayQuery->fetch_object()) {
-                    echo "\t<option value='editHoliday.php?id=$row->holidayID'>$row->holidayTitle</option>\n";
+                    $id = htmlspecialchars($row->holidayID);
+                    $title = htmlspecialchars($row->holidayTitle);
+                    echo "\t<option value='editHoliday.php?id=$id'>$title</option>\n";
                 }
             ?>
         </select></td>
@@ -40,7 +42,9 @@
                 $categoryQuery = utility::query($categorySql);
 
                 while ($row = $categoryQuery->fetch_object()) {
-                    echo "\t<option value='editCategory.php?id=$row->catID'>$row->catDesc</option>\n";
+                    $id = htmlspecialchars($row->catID);
+                    $desc = htmlspecialchars($row->catDesc);
+                    echo "\t<option value='editCategory.php?id=$id'>$desc</option>\n";
                 }
             ?>
         </select></td>
@@ -59,7 +63,10 @@
                 $locationQuery = utility::query($locationSql);
 
                 while ($row = $locationQuery->fetch_object()) {
-                    echo "\t<option value='editLocation.php?id=$row->locationID'>$row->locationName, $row->country</option>\n";
+                    $id = htmlspecialchars($row->locationID);
+                    $location = htmlspecialchars($row->locationName);
+                    $country = htmlspecialchars($row->country);
+                    echo "\t<option value='editLocation.php?id=$id'>$location, $country</option>\n";
                 }
             ?>
         </select></td>

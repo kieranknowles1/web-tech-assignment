@@ -43,18 +43,26 @@ function holidayList($queryResult) {
     while ($row = $queryResult->fetch_object()) {
         // TODO: Improve formatting when number of results is not a multiple of 3
 
-        boxBegin($row->holidayID, "holiday", $row->holidayTitle);
+        $id = htmlspecialchars($row->holidayID);
+        $title = htmlspecialchars($row->holidayTitle);
+        $location = htmlspecialchars($row->locationName);
+        $country = htmlspecialchars($row->country);
+        $duration = htmlspecialchars($row->holidayDuration);
+        $price = (int)htmlspecialchars($row->holidayPrice);
+        $description = htmlspecialchars($row->holidayDescription);
 
-        echo "<span class='country'>$row->locationName, $row->country</span></p>\n";
+
+        boxBegin($id, "holiday", $title);
+
+        echo "<span class='country'>$location, $country</span></p>\n";
         
-        echo "<p>$row->holidayDuration nights</p>";
+        echo "<p>$duration nights</p>";
     
         // holidayPrice uses decimal so query returns a string
         // Casting to int removes the trailing '.00'
-        $price = (int)$row->holidayPrice;
         echo "<p>£$price</p>";
 
-        echo "<p class='description'>$row->holidayDescription</p>";
+        echo "<p class='description'>$description</p>";
     
         boxEnd();
     }

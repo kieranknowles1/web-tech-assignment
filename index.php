@@ -23,8 +23,11 @@
     $queryResult = utility::query($sql);
 
     while ($row = $queryResult->fetch_object()) {
+        $id = htmlspecialchars($row->catID);
+        $description = htmlspecialchars($row->catDesc);
+
         // Use inline css for backgroud
-        boxBegin($row->catID, "category", $row->catDesc);
+        boxBegin($id, "category", $description);
         echo "</p>\n";
 
         boxEnd();
