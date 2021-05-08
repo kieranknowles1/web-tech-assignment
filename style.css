@@ -104,7 +104,10 @@ nav a {
 }
 
 .holidayBox .country {
+    background-color: rgb(255, 255, 255, 0.7);
     float: right;
+    padding: 2px;
+    padding-right: 5px;
 }
 
 .holidayBox .priceDuration {

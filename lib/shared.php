@@ -57,13 +57,16 @@ function holidayList($queryResult) {
 
         boxBegin($id, "holiday", $title);
 
-        echo "<span class='country'>$location, $country</span></p>\n";
+        echo "</p>\n";
+        //echo "<span class='country'>$location, $country</span></p>\n";
         
         // Span used to set background color for width of text
         echo "<p class='priceDuration'>
                 $duration nights<br>
                 £$price
               </p>";
+        
+        echo "<p class='country'>$location, $country</p>";
 
         echo "<p class='description'>$description</p>";
     
