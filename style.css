@@ -99,6 +99,8 @@ nav a {
 .holidayBox .title {
     background-color: rgb(255, 255, 255, 0.7);
     padding: 0.5em;
+
+    margin-bottom: 0;
 }
 
 .holidayBox .country {
@@ -113,15 +115,6 @@ nav a {
     padding-left: 5px;
 
     background-color: rgb(255, 255, 255, 0.7);
-}
-
-.holidayBox .description {
-    background-color: rgb(255, 255, 255, 0.7);
-    padding: 0.5em;
-
-    /* https://flaviocopes.com/css-how-to-put-item-bottom-container/ */
-    position: absolute;
-    bottom: 0;
 }
 
 /* Holiday details */
@@ -198,6 +191,20 @@ nav a {
         height: 15vw;
     }
 
+    .holidayBox .description {
+        background-color: rgb(255, 255, 255, 0.7);
+        padding: 0.5em;
+    
+        /* https://flaviocopes.com/css-how-to-put-item-bottom-container/ */
+        position: absolute;
+        bottom: 0;
+    
+        overflow: hidden;
+
+        min-height: 3em;
+        max-height: 5em;
+    }
+
     nav .search {
         float: right;
     }
@@ -235,6 +242,11 @@ nav a {
         position: absolute;
         right: 0;
         top: 0;
+    }
+
+    .holidayBox .description {
+        /* Not enough space on mobile */
+        display: none;
     }
 
     nav {
