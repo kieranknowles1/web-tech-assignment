@@ -228,6 +228,10 @@ nav a {
             "description description country"
             "images images images"
             "duration price book";
+
+        width: 90%;
+        margin: auto;
+        margin-top: 2em;
     }
 
     .holidayDetails .images {
