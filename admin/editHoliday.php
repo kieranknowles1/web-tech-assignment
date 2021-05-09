@@ -26,9 +26,10 @@
         $price = "???";
         $altText = "";
 
-        $location = "Location";
-        $category = "Category";
-        $country = "Country";
+        $holidayLocation = "Location";
+        $holidayCountry = "Country";
+        $catDesc = "A [category] holiday";
+
         $locID = "-1"; // Why is this a varchar()?
 
         $catID = "-1"; // Same here
@@ -140,7 +141,7 @@
     </label><br>
 
     <label>Duration: 
-        <input type="number" min="1" max="99" name="duration" value="<?php echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
+        <input type="number" min="1" max="99" name="duration" value="<?php if(!$isNew) echo $duration?>" onchange="setText(['#preview-duration', '#full-duration'], this.value + ' nights') //$('#preview-duration').text(this.value + ' nights')" required>
     </label><br>
 
     <label>Description: 
@@ -148,7 +149,7 @@
     </label><br>
 
     <label>Price: 
-        <input type="number" min="1" max="9999.99" name="price" value="<?php echo $price?>" onchange="setText(['#preview-price', '#full-price'], this.value)// $('#preview-price').text('£' + this.value)" required>
+        <input type="number" min="1" max="9999.99" name="price" value="<?php if(!$isNew) echo $price?>" onchange="setText(['#preview-price', '#full-price'], this.value)// $('#preview-price').text('£' + this.value)" required>
     </label><br>
 
     <label>Image (max 500kb): 
@@ -172,22 +173,35 @@
 </form>
 
     <!-- Preview -->
+    <?php
+        if ($holTitle == "") $holTitle = "Title";
+    ?>
     
     <div class="holidayBox" id="preview-img" style='background-image: <?php echo $preview; ?>'>
+
+    <!-- 
+        echo "<p class='priceDuration'>
+                $duration nights<br>
+                £$price
+              </p>";
+        
+        echo "<p class='country'>$location, $country</p>";
+    -->
         <p class="title">
             <span id="preview-title"><?php echo $holTitle; ?></span>
-            <span class="country" id="preview-location"><?php echo "$location, $country"?></span>
         </p>
-        <p id="preview-duration"><?php echo $duration?> nights</p>
-        <p id="preview-price">£<?php echo $price?></p>
+        <p class="priceDuration">
+            <span id="preview-duration"><?php echo $duration?> nights</span><br>
+            <span id="preview-price">£<?php echo $price?></span>
+        </p>
     </div>
 
     <section class="holidayDetails">
         <div class='header'><h2 class='header' id="full-title"><?php echo $holTitle?></h2></div>
         <div class='type' id='full-category'><?php echo $catDesc?></div>
         <div class='description' id="full-desc"><?php echo $description?></div>
-        <div class='location' id="full-location"><?php echo $location?></div>
-        <div class='country' id="full-country"><?php echo $country?></div>
+        <div class='location' id="full-location"><?php echo $holidayLocation?></div>
+        <div class='country' id="full-country"><?php echo $holidayCountry?></div>
         <div class='images'><img src='<?php echo $image?>' id="full-img" alt='<?php echo $altText?>'></div>
         <div class='duration' id='full-duration'><?php echo $duration?> nights</div>
         <div class='price' id='full-price'>£<?php echo $price?></div>
