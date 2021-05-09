@@ -172,6 +172,11 @@ nav a {
 
 .holidayDetails .book {
     grid-area: book;
+
+    /* http://howtocenterincss.com/ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .adminSelect {
@@ -219,7 +224,7 @@ nav a {
 
     /* Holiday details */
     .holidayDetails {
-        grid-template-rows: auto;
+        grid-template-rows: auto auto auto auto 2em;
         grid-template-columns: auto auto 20%;
     
         grid-template-areas: 

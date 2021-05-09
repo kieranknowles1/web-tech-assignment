@@ -63,7 +63,7 @@
     echo "\t<div class='duration'>$duration nights</div>\n";
     $price = htmlspecialchars($row->holidayPrice);
     echo "\t<div class='price'>£$price</div>\n";
-    echo "\t<a class='book' href=''><p>Book now!</p></a>\n"
+    echo "\t<a class='book' href=''>Book now!</a>\n"
 ?>
 </section>
 
