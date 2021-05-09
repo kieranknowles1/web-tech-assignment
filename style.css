@@ -190,6 +190,13 @@ nav a {
     padding: 2px;
 }
 
+embed {
+    width: 90%;
+    height: 80vh;
+
+    margin-left: 5%;
+}
+
 /* Media Queries */
 @media screen and (orientation: landscape) {
     .banner h2 {

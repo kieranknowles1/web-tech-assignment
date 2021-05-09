@@ -3,8 +3,8 @@
     include_once "lib/header.php";
 ?>
 
-<a href="wireframes/desktop.pdf" download>Desktop</a><br>
-<a href="wireframes/mobile.pdf" download>Mobile</a>
+<embed src="/wireframes/wireframes.pdf"><br>
+<a href="wireframes/wireframes.pdf" download>Download</a>
 
 <?php
     include_once "lib/footer.php";
